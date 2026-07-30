@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rapid Fire Improv</title>
+    <meta
+      name="description"
+      content="Rapid Fire Improv brings fast scenes, bold characters, and live comedy shows built from audience suggestions."
+    >
+    <meta property="og:title" content="Rapid Fire Improv">
+    <meta
+      property="og:description"
+      content="Upcoming shows, booking, and team updates for Rapid Fire Improv."
+    >
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="config.js"></script>
+    <script defer src="site.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#shows">Skip to shows</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Rapid Fire Improv home">
+        <img
+          data-logo
+          src="https://dhftlfjula7qg.cloudfront.net/images/event/Rapid%20fire%20logo%20neon.png"
+          alt=""
+        >
+        <span data-team-name>Rapid Fire Improv</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#shows">Shows</a>
+        <a href="#team">Team</a>
+        <a href="#booking">Booking</a>
+        <a href="admin.html">Team Edit</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Live improv comedy</p>
+          <h1 id="hero-title" data-team-name>Rapid Fire Improv</h1>
+          <p class="lede" data-tagline>Fast scenes. Big swings. No brakes.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#shows">Upcoming Shows</a>
+            <a class="button button-secondary" href="#booking">Book the Team</a>
+          </div>
+        </div>
+
+        <div class="hero-mark" aria-label="Rapid Fire show count">
+          <img
+            data-logo
+            src="https://dhftlfjula7qg.cloudfront.net/images/event/Rapid%20fire%20logo%20neon.png"
+            alt="Rapid Fire Improv neon logo"
+          >
+          <div class="count-lockup">
+            <strong id="show-count-number">0</strong>
+            <span id="show-count-label">upcoming shows</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="Rapid Fire values">
+        <span>Trust the first idea</span>
+        <span>Commit to the bit</span>
+        <span>Make the weird choice</span>
+        <span>Bring the room with you</span>
+      </section>
+
+      <section id="shows" class="section section-shows" aria-labelledby="shows-title">
+        <div class="section-head">
+          <p class="eyebrow">Upcoming dates</p>
+          <h2 id="shows-title">Next Shows</h2>
+          <p>Live comedy, fast turns, and a new night every time.</p>
+        </div>
+        <div id="shows-grid" class="shows-grid" aria-live="polite">
+          <p class="loading">Loading shows...</p>
+        </div>
+      </section>
+
+      <section id="team" class="section section-team" aria-labelledby="team-title">
+        <div class="section-head">
+          <p class="eyebrow">The ensemble</p>
+          <h2 id="team-title">Fast, Fearless, Fully In</h2>
+          <p>Rapid Fire builds scenes from audience fuel and a shared appetite for the wild turn.</p>
+        </div>
+        <div id="cast-grid" class="cast-grid"></div>
+      </section>
+
+      <section id="booking" class="booking" aria-labelledby="booking-title">
+        <div>
+          <p class="eyebrow">Booking</p>
+          <h2 id="booking-title">Bring Rapid Fire to the Room</h2>
+          <p>
+            Stage shows, private events, fundraisers, workshops, and high-speed comedy collisions.
+          </p>
+        </div>
+        <a id="booking-email" class="button button-primary" href="mailto:booking@rapidfireimprov.com">
+          Email Booking
+        </a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span data-team-name>Rapid Fire Improv</span>
+      <a href="admin.html">Team Edit</a>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Team Edit - Rapid Fire Improv</title>
+    <meta name="description" content="Rapid Fire Improv team editing hub.">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="config.js"></script>
+    <script defer src="site.js"></script>
+  </head>
+  <body class="admin-page">
+    <a class="skip-link" href="#admin-preview">Skip to preview</a>
+
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Rapid Fire Improv home">
+        <img
+          data-logo
+          src="https://dhftlfjula7qg.cloudfront.net/images/event/Rapid%20fire%20logo%20neon.png"
+          alt=""
+        >
+        <span data-team-name>Rapid Fire Improv</span>
+      </a>
+      <nav class="site-nav" aria-label="Admin navigation">
+        <a href="index.html#shows">Shows</a>
+        <a href="index.html#booking">Booking</a>
+        <a href="admin.html" aria-current="page">Team Edit</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="admin-hero" aria-labelledby="admin-title">
+        <p class="eyebrow">Team hub</p>
+        <h1 id="admin-title">Update the Next Show</h1>
+        <p class="lede">
+          Open the shared team sheet, make the change, and the public page will follow that feed.
+        </p>
+        <div class="hero-actions">
+          <a id="admin-sheet-link" class="button button-primary is-disabled" href="#" aria-disabled="true">
+            Open Show Sheet
+          </a>
+          <a class="button button-secondary" href="index.html#shows">View Public Shows</a>
+        </div>
+      </section>
+
+      <section id="admin-preview" class="section section-shows" aria-labelledby="admin-preview-title">
+        <div class="section-head">
+          <p class="eyebrow">Preview</p>
+          <h2 id="admin-preview-title">Current Feed</h2>
+          <p id="events-source">Sample data</p>
+        </div>
+        <div id="shows-grid" class="shows-grid compact" aria-live="polite">
+          <p class="loading">Loading shows...</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span data-team-name>Rapid Fire Improv</span>
+      <a href="index.html">Public Site</a>
+    </footer>
+  </body>
+</html>
