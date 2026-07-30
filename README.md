@@ -28,18 +28,24 @@ Do not put passwords, API keys, private notes, or unreleased internal details in
 
 Open `docs/index.html` in a browser. No install step is required.
 
-## GitHub
+## GitHub Pages
 
-This repo includes `.github/workflows/pages.yml`, which publishes the `docs/` folder to GitHub Pages.
+Publish the site directly from the `docs/` folder.
 
-Typical first push:
+In GitHub:
+
+1. Open the repository settings.
+2. Go to Pages.
+3. Under "Build and deployment", choose "Deploy from a branch".
+4. Set the branch to `main` and the folder to `/docs`.
+5. Save.
+
+Typical first push from this computer:
 
 ```powershell
-git add .gitignore .github docs README.md
+git add .gitignore docs README.md
 git commit -m "Initial Rapid Fire static site"
 git branch -M main
 git remote add origin https://github.com/YOUR-ACCOUNT/YOUR-REPO.git
 git push -u origin main
 ```
-
-In GitHub, enable Pages with GitHub Actions as the source.
