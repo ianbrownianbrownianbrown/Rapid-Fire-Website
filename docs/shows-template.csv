@@ -1,4 +1,4 @@
 date,time,title,venue,address,ticket_url,description,status,featured
-2026-08-16,7:30 PM,lorem ipsum...,lorem ipsum...,lorem ipsum...,#booking,lorem ipsum...,lorem ipsum...,true
-2026-09-06,8:00 PM,lorem ipsum...,lorem ipsum...,lorem ipsum...,#booking,lorem ipsum...,lorem ipsum...,false
-2026-10-18,7:00 PM,lorem ipsum...,lorem ipsum...,lorem ipsum...,#booking,lorem ipsum...,lorem ipsum...,false
+2026-08-16,7:30 PM,Lorem Ipsum,Dolor sit amet,Consectetur adipiscing,#booking,"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",Lorem ipsum,true
+2026-09-06,8:00 PM,Dolor Sit Amet,Consectetur elit,Sed do eiusmod,#booking,"Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",Dolor sit,false
+2026-10-18,7:00 PM,Consectetur Elit,Adipiscing elit,Ut enim ad minim,#booking,"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",Amet,false
