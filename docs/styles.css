@@ -169,10 +169,10 @@ a {
 }
 
 .hero {
-  min-height: 78svh;
+  min-height: 106svh;
   display: grid;
-  place-items: center;
-  padding: clamp(120px, 16vw, 210px) clamp(20px, 6%, 86px) 42px;
+  place-items: start center;
+  padding: clamp(360px, 42vw, 560px) clamp(20px, 6%, 86px) 56px;
   border-bottom: 1px solid var(--line);
   background:
     linear-gradient(
@@ -738,7 +738,7 @@ h3 {
   }
 
   .hero {
-    padding-top: clamp(96px, 14vw, 150px);
+    padding-top: clamp(320px, 48vw, 430px);
   }
 
   h1 {
