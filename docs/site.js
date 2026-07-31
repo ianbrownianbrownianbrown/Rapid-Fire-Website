@@ -19,6 +19,7 @@
 
     applyConfig();
     applyContent();
+    initBannerFade();
 
     const [contentResult, showsResult, castResult] = await Promise.allSettled([
       loadContent(),
@@ -55,6 +56,25 @@
     renderCast();
     renderShows(state.shows);
     updateFeedLabels();
+  }
+
+  function initBannerFade() {
+    if (!document.body.classList.contains("home-page")) return;
+
+    let ticking = false;
+    const update = () => {
+      const progress = Math.min(window.scrollY / 520, 1);
+      const opacity = 0.78 - progress * 0.62;
+      document.documentElement.style.setProperty("--banner-opacity", opacity.toFixed(3));
+      ticking = false;
+    };
+
+    update();
+    window.addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }, { passive: true });
   }
 
   function getDefaultContent() {

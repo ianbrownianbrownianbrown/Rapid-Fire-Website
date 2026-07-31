@@ -15,6 +15,7 @@
   --green: #14d978;
   --line: rgba(37, 17, 38, 0.14);
   --shadow: rgba(37, 17, 38, 0.16);
+  --banner-opacity: 0.78;
 }
 
 * {
@@ -26,6 +27,7 @@ html {
 }
 
 body {
+  position: relative;
   min-height: 100vh;
   margin: 0;
   font-family: "Trebuchet MS", Arial, sans-serif;
@@ -33,26 +35,31 @@ body {
     linear-gradient(135deg, rgba(255, 248, 236, 0.94), rgba(239, 252, 255, 0.9) 48%, rgba(255, 240, 251, 0.94)),
     var(--paper);
   color: var(--ink);
+  isolation: isolate;
 }
 
-body::before {
+body.home-page::before {
   content: "";
   position: fixed;
-  inset: 0;
-  z-index: -2;
-  background: url("assets/rapid-fire-team.jpg") center bottom / auto 100% no-repeat;
-  opacity: 0.82;
-  filter: saturate(1.08) contrast(1.04);
+  top: 72px;
+  right: 0;
+  left: 0;
+  height: clamp(330px, 42vw, 560px);
+  z-index: 0;
+  background: url("assets/rapid-fire-team.jpg") center 38% / cover no-repeat;
+  opacity: var(--banner-opacity);
+  filter: saturate(1.12) contrast(1.03);
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(90deg, black 0 18%, transparent 32% 68%, black 82% 100%);
-  mask-image: linear-gradient(90deg, black 0 18%, transparent 32% 68%, black 82% 100%);
+  transform: translateZ(0);
+  -webkit-mask-image: linear-gradient(180deg, black 0 72%, transparent 100%);
+  mask-image: linear-gradient(180deg, black 0 72%, transparent 100%);
 }
 
 body::after {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   background:
     repeating-linear-gradient(90deg, rgba(255, 43, 214, 0.08) 0 1px, transparent 1px 72px),
     repeating-linear-gradient(0deg, rgba(0, 169, 255, 0.065) 0 1px, transparent 1px 72px),
@@ -60,6 +67,13 @@ body::after {
     radial-gradient(circle at 88% 18%, rgba(0, 169, 255, 0.16), transparent 24rem),
     linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.34));
   pointer-events: none;
+}
+
+.site-header,
+main,
+.site-footer {
+  position: relative;
+  z-index: 1;
 }
 
 a {
@@ -155,9 +169,10 @@ a {
   min-height: 78svh;
   display: grid;
   place-items: center;
-  padding: 52px clamp(20px, 6%, 86px) 42px;
+  padding: clamp(120px, 16vw, 210px) clamp(20px, 6%, 86px) 42px;
   border-bottom: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.66), rgba(255, 255, 255, 0.46));
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.72) 56%, rgba(255, 255, 255, 0.9));
   text-align: center;
 }
 
@@ -277,12 +292,7 @@ h3 {
 }
 
 .hero-logo {
-  width: min(250px, 58vw);
-  height: auto;
-  margin-bottom: 16px;
-  filter:
-    drop-shadow(0 0 16px rgba(255, 43, 214, 0.56))
-    drop-shadow(0 0 24px rgba(0, 169, 255, 0.28));
+  display: none;
 }
 
 .count-lockup {
@@ -538,7 +548,7 @@ h3 {
   }
 
   .hero {
-    padding-top: 46px;
+    padding-top: clamp(96px, 14vw, 150px);
   }
 
   h1 {
@@ -556,7 +566,7 @@ h3 {
 }
 
 @media (max-width: 680px) {
-  body::before {
+  body.home-page::before {
     display: none;
   }
 
@@ -587,10 +597,6 @@ h3 {
     margin-bottom: 22px;
     font-size: 1rem;
     line-height: 1.38;
-  }
-
-  .hero-logo {
-    display: none;
   }
 
   .hero-actions {

@@ -7,7 +7,7 @@ window.RAPID_FIRE_CONFIG = {
   contentSheetCsvUrl: "",
   googleSheetCsvUrl: "",
   castSheetCsvUrl: "",
-  adminSheetUrl: "",
+  adminSheetUrl: "https://docs.google.com/spreadsheets/d/13I2AXsan5MFERINJpTIhSWPBocM4I5w5tXZzvJE6wTs/edit?usp=drivesdk",
   content: {},
   socials: {
     instagram: "",
