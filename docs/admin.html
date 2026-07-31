@@ -15,7 +15,7 @@
     <script defer src="site.js"></script>
   </head>
   <body class="admin-page">
-    <a class="skip-link" href="#admin-preview">Skip to preview</a>
+    <a class="skip-link" href="#show-editor">Skip to show editor</a>
 
     <header class="site-header">
       <a class="brand" href="index.html" aria-label="Rapid Fire Improv home">
@@ -39,21 +39,107 @@
         <p class="eyebrow" data-content="admin.hero.eyebrow">Team hub</p>
         <h1 id="admin-title" data-content="admin.hero.title">Update the Site</h1>
         <p class="lede" data-content="admin.hero.body">
-          Open the shared control sheet, make the change, and the public page will follow that feed.
+          Add and edit upcoming shows from the hidden team page.
         </p>
         <div class="hero-actions">
-          <a
-            id="admin-sheet-link"
-            class="button button-primary is-disabled"
-            href="#"
-            aria-disabled="true"
-            data-content="admin.hero.open_sheet_button"
-          >
-            Open Site Sheet
+          <a class="button button-primary" href="#show-editor" data-content="admin.hero.edit_shows_button">
+            Edit Shows
           </a>
           <a class="button button-secondary" href="index.html#shows" data-content="admin.hero.view_public_button">
             View Public Shows
           </a>
+        </div>
+      </section>
+
+      <section id="show-editor" class="section admin-editor" aria-labelledby="show-editor-title">
+        <div class="section-head">
+          <p class="eyebrow" data-content="admin.editor.eyebrow">Shows</p>
+          <h2 id="show-editor-title" data-content="admin.editor.title">Show Control</h2>
+          <p id="admin-edit-status" aria-live="polite">Ready</p>
+        </div>
+
+        <div class="admin-workspace">
+          <aside class="admin-panel" aria-labelledby="admin-show-list-title">
+            <div class="admin-panel-head">
+              <h3 id="admin-show-list-title" data-content="admin.editor.list_title">Upcoming Shows</h3>
+              <button id="admin-new-show" class="button button-secondary" type="button" data-content="admin.editor.new_show">
+                New Show
+              </button>
+            </div>
+            <div id="admin-show-list" class="admin-show-list"></div>
+          </aside>
+
+          <form id="admin-show-form" class="admin-form">
+            <input id="admin-show-index" type="hidden" value="">
+
+            <div class="field-grid">
+              <label>
+                Date
+                <input id="show-date" name="date" type="date">
+              </label>
+              <label>
+                Time
+                <input id="show-time" name="time" type="text" placeholder="7:30 PM">
+              </label>
+              <label>
+                Title
+                <input id="show-title-input" name="title" type="text">
+              </label>
+              <label>
+                Status
+                <input id="show-status" name="status" type="text">
+              </label>
+              <label>
+                Venue
+                <input id="show-venue" name="venue" type="text">
+              </label>
+              <label>
+                Address
+                <input id="show-address" name="address" type="text">
+              </label>
+            </div>
+
+            <label>
+              Ticket URL
+              <input id="show-ticket-url" name="ticket_url" type="text" placeholder="https:// or #booking">
+            </label>
+
+            <label>
+              Description
+              <textarea id="show-description" name="description" rows="5"></textarea>
+            </label>
+
+            <label class="check-field">
+              <input id="show-featured" name="featured" type="checkbox">
+              Featured show
+            </label>
+
+            <div class="admin-actions">
+              <button class="button button-primary" type="submit" data-content="admin.editor.save_draft">
+                Save Draft
+              </button>
+              <button id="admin-delete-show" class="button button-secondary" type="button" data-content="admin.editor.delete_show">
+                Delete Show
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="publish-panel">
+          <label>
+            GitHub save key
+            <input id="github-token" type="password" autocomplete="off">
+          </label>
+          <label class="check-field">
+            <input id="remember-token" type="checkbox">
+            Remember on this device
+          </label>
+          <button id="admin-publish-shows" class="button button-primary" type="button" data-content="admin.editor.publish">
+            Publish Shows
+          </button>
+          <button id="admin-reload-shows" class="button button-secondary" type="button" data-content="admin.editor.reload">
+            Reload
+          </button>
         </div>
       </section>
 

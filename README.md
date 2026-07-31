@@ -2,59 +2,42 @@
 
 Static first version for the Rapid Fire improv team site. The public site lives in `docs/` so GitHub Pages can publish it without a build step.
 
-## Edit The Site From Google Sheets
+## Edit Shows From The Hidden Admin Page
 
-The site can use sample content from `docs/config.js` or read from published Google Sheet CSV tabs.
+The public site reads upcoming shows from `docs/data/shows.json`. The hidden admin page at `docs/admin.html` lets teammates add, edit, preview, and publish shows without touching code.
 
-Use the templates in `docs/`:
+The admin page is intentionally not linked from the public navigation. Type `/admin.html` after the site URL to open it.
 
-| template | controls |
-| --- | --- |
-| `content-template.csv` | Page copy, headings, buttons, nav labels, meta text, hidden admin text |
-| `shows-template.csv` | Upcoming show cards |
-| `cast-template.csv` | Team/cast cards |
+To publish from the admin page, use a GitHub fine-grained personal access token with read/write `Contents` permission for this repository only. Paste that token into the "GitHub save key" field, edit the shows, then click "Publish Shows". The token is not committed to the repository. "Remember on this device" stores it only in that browser.
 
-The content sheet columns are:
+Show fields:
 
-| column | purpose |
-| --- | --- |
-| `key` | The website text slot, such as `hero.tagline` |
-| `value` | The text to show on the site |
-| `where_it_appears` | Human-friendly note for editors |
-| `status` | Use `active`; use `hidden` to ignore a row |
-| `notes` | Optional editing notes |
-
-The shows sheet columns are:
-
-| column | example |
+| field | example |
 | --- | --- |
 | `date` | `2026-08-16` |
 | `time` | `7:30 PM` |
 | `title` | `Sunday Night Rapid Fire` |
 | `venue` | `The Lantern Room` |
 | `address` | `123 Main St` |
-| `ticket_url` | `https://tickets.example.com/show` |
+| `ticket_url` | `https://tickets.example.com/show` or `#booking` |
 | `description` | `A high-speed short-form set with guest players.` |
-| `status` | `On sale` |
-| `featured` | `true` |
+| `status` | `On sale`, `Details soon`, or `hidden` |
+| `featured` | Checked for a highlighted card |
 
-The cast sheet columns are:
-
-| column | example |
-| --- | --- |
-| `sort_order` | `1` |
-| `name` | `The Rapid Fire Ensemble` |
-| `role` | `Improv team` |
-| `bio` | `Quick characters and sharper edits.` |
-| `status` | `active` |
-
-After publishing each Google Sheet tab as CSV, paste the public CSV URLs into `contentSheetCsvUrl`, `googleSheetCsvUrl`, and `castSheetCsvUrl` in `docs/config.js`. Paste the normal shared Google Sheet edit URL into `adminSheetUrl`; the hidden Team Edit page links there and Google handles teammate login.
-
-Do not put passwords, API keys, private notes, or unreleased internal details in `docs/config.js` or the published sheet.
+Do not put passwords, private notes, or unreleased internal details in public site files. A hidden URL keeps the page out of normal browsing, but the site is still static and public.
 
 ## Local Preview
 
-Open `docs/index.html` in a browser. No install step is required.
+Run a simple local server from `docs/`, then open the printed URL in a browser. The JSON show feed uses `fetch`, so a local server is better than opening the HTML file directly.
+
+```powershell
+cd docs
+py -m http.server 8000
+```
+
+Public preview: `http://localhost:8000/`
+
+Hidden admin preview: `http://localhost:8000/admin.html`
 
 ## GitHub Pages
 

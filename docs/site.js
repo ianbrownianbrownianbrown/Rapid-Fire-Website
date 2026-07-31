@@ -6,6 +6,8 @@
     source: "Sample data",
     castSource: "Local defaults",
     shows: Array.isArray(config.fallbackShows) ? config.fallbackShows : [],
+    editorShows: Array.isArray(config.fallbackShows) ? config.fallbackShows : [],
+    activeShowIndex: 0,
     cast: Array.isArray(config.cast) ? config.cast : []
   };
 
@@ -35,13 +37,11 @@
       state.contentSource = contentResult.value.source;
     }
 
-    if (showsResult.status === "fulfilled") {
-      state.shows = normalizeShows(showsResult.value.shows);
-      state.source = showsResult.value.source;
-    } else {
-      state.shows = normalizeShows(config.fallbackShows || []);
-      state.source = "Sample data";
-    }
+    const loadedShows =
+      showsResult.status === "fulfilled" ? showsResult.value.shows : config.fallbackShows || [];
+    state.editorShows = normalizeEditableShows(loadedShows);
+    state.shows = normalizeShows(state.editorShows);
+    state.source = showsResult.status === "fulfilled" ? showsResult.value.source : "Sample data";
 
     if (castResult.status === "fulfilled") {
       state.cast = normalizeCast(castResult.value.cast);
@@ -56,6 +56,7 @@
     renderCast();
     renderShows(state.shows);
     updateFeedLabels();
+    initAdminEditor();
   }
 
   function initBannerFade() {
@@ -125,13 +126,22 @@
       "admin.nav.team_edit": "Team Edit",
       "admin.hero.eyebrow": "Team hub",
       "admin.hero.title": "Update the Site",
-      "admin.hero.body": "Open the shared control sheet, make the change, and the public page will follow that feed.",
-      "admin.hero.open_sheet_button": "Open Site Sheet",
+      "admin.hero.body": "Add and edit upcoming shows from the hidden team page.",
+      "admin.hero.edit_shows_button": "Edit Shows",
       "admin.hero.view_public_button": "View Public Shows",
+      "admin.editor.eyebrow": "Shows",
+      "admin.editor.title": "Show Control",
+      "admin.editor.list_title": "Upcoming Shows",
+      "admin.editor.new_show": "New Show",
+      "admin.editor.save_draft": "Save Draft",
+      "admin.editor.delete_show": "Delete Show",
+      "admin.editor.publish": "Publish Shows",
+      "admin.editor.reload": "Reload",
       "admin.preview.eyebrow": "Preview",
       "admin.preview.title": "Current Feed",
       "admin.source.sample": "Sample data",
       "admin.source.google": "Google Sheet",
+      "admin.source.site": "Site admin",
       "admin.footer.public_site": "Public Site"
     };
   }
@@ -148,14 +158,6 @@
       bookingEmail.href = `mailto:${config.contactEmail}`;
     }
 
-    const sheetLink = document.querySelector("#admin-sheet-link");
-    if (sheetLink && config.adminSheetUrl) {
-      sheetLink.href = config.adminSheetUrl;
-      sheetLink.classList.remove("is-disabled");
-      sheetLink.removeAttribute("aria-disabled");
-      sheetLink.target = "_blank";
-      sheetLink.rel = "noopener";
-    }
   }
 
   function applyContent() {
@@ -201,6 +203,13 @@
   }
 
   async function loadShows() {
+    if (config.showsDataUrl) {
+      const shows = await fetchShowsJson(config.showsDataUrl);
+      if (shows.length > 0) {
+        return { shows, source: "Site admin" };
+      }
+    }
+
     if (config.googleSheetCsvUrl) {
       const response = await fetch(config.googleSheetCsvUrl, { cache: "no-store" });
       if (!response.ok) {
@@ -217,6 +226,18 @@
       shows: Array.isArray(config.fallbackShows) ? config.fallbackShows : [],
       source: "Sample data"
     };
+  }
+
+  async function fetchShowsJson(url) {
+    const separator = url.includes("?") ? "&" : "?";
+    const response = await fetch(`${url}${separator}v=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error("Could not load show data");
+    }
+
+    const data = await response.json();
+    const shows = Array.isArray(data) ? data : data.shows;
+    return Array.isArray(shows) ? shows : [];
   }
 
   async function loadCast() {
@@ -259,6 +280,30 @@
         const date = getShowDate(show.date);
         return !date || date >= today;
       })
+      .sort((a, b) => {
+        const dateA = getShowDate(a.date);
+        const dateB = getShowDate(b.date);
+        if (!dateA && !dateB) return 0;
+        if (!dateA) return 1;
+        if (!dateB) return -1;
+        return dateA - dateB;
+      });
+  }
+
+  function normalizeEditableShows(shows) {
+    return shows
+      .filter(Boolean)
+      .map((show) => ({
+        date: String(show.date || "").trim(),
+        time: String(show.time || "").trim(),
+        title: String(show.title || "").trim(),
+        venue: String(show.venue || "").trim(),
+        address: String(show.address || "").trim(),
+        ticket_url: String(show.ticket_url || show.ticketUrl || "").trim(),
+        description: String(show.description || "").trim(),
+        status: String(show.status || "").trim(),
+        featured: isTruthy(show.featured)
+      }))
       .sort((a, b) => {
         const dateA = getShowDate(a.date);
         const dateB = getShowDate(b.date);
@@ -390,9 +435,291 @@
   function updateFeedLabels() {
     const source = document.querySelector("#events-source");
     if (source) {
-      source.textContent =
-        state.source === "Google Sheet" ? getContent("admin.source.google") : getContent("admin.source.sample");
+      if (state.source === "Site admin") {
+        source.textContent = getContent("admin.source.site");
+      } else if (state.source === "Google Sheet") {
+        source.textContent = getContent("admin.source.google");
+      } else {
+        source.textContent = getContent("admin.source.sample");
+      }
     }
+  }
+
+  function initAdminEditor() {
+    const form = document.querySelector("#admin-show-form");
+    if (!form) return;
+
+    const tokenInput = document.querySelector("#github-token");
+    const rememberToken = document.querySelector("#remember-token");
+    const savedToken = window.localStorage.getItem("rapidFireGithubToken") || "";
+
+    if (tokenInput && savedToken) {
+      tokenInput.value = savedToken;
+      if (rememberToken) rememberToken.checked = true;
+    }
+
+    if (!state.editorShows.length) {
+      state.editorShows.push(createBlankShow());
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      saveCurrentAdminShow();
+      setAdminStatus("Draft saved");
+    });
+
+    document.querySelector("#admin-new-show")?.addEventListener("click", () => {
+      saveCurrentAdminShow({ silent: true });
+      state.editorShows.push(createBlankShow());
+      state.activeShowIndex = state.editorShows.length - 1;
+      renderAdminEditor();
+      setAdminStatus("New show ready");
+    });
+
+    document.querySelector("#admin-delete-show")?.addEventListener("click", () => {
+      if (!state.editorShows.length) return;
+      state.editorShows.splice(state.activeShowIndex, 1);
+      if (!state.editorShows.length) {
+        state.editorShows.push(createBlankShow());
+      }
+      state.activeShowIndex = Math.min(state.activeShowIndex, state.editorShows.length - 1);
+      renderAdminEditor();
+      syncAdminPreview();
+      setAdminStatus("Show removed from draft");
+    });
+
+    document.querySelector("#admin-publish-shows")?.addEventListener("click", () => {
+      publishAdminShows().catch((error) => {
+        setAdminStatus(error.message || "Could not publish shows");
+      });
+    });
+
+    document.querySelector("#admin-reload-shows")?.addEventListener("click", () => {
+      reloadAdminShows().catch((error) => {
+        setAdminStatus(error.message || "Could not reload shows");
+      });
+    });
+
+    renderAdminEditor();
+    syncAdminPreview();
+  }
+
+  function createBlankShow() {
+    return {
+      date: "",
+      time: "7:00 PM",
+      title: "New Show",
+      venue: "Venue TBA",
+      address: "",
+      ticket_url: "#booking",
+      description: "",
+      status: "Details soon",
+      featured: false
+    };
+  }
+
+  function renderAdminEditor() {
+    renderAdminShowList();
+    populateAdminForm();
+  }
+
+  function renderAdminShowList() {
+    const list = document.querySelector("#admin-show-list");
+    if (!list) return;
+
+    list.textContent = "";
+    state.editorShows.forEach((show, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `admin-show-item${index === state.activeShowIndex ? " is-active" : ""}`;
+      button.dataset.index = String(index);
+
+      const title = document.createElement("strong");
+      title.textContent = show.title || "Untitled show";
+
+      const meta = document.createElement("span");
+      meta.textContent = [show.date || "No date", show.time, show.status].filter(Boolean).join(" / ");
+
+      button.append(title, meta);
+      button.addEventListener("click", () => {
+        saveCurrentAdminShow({ silent: true });
+        state.activeShowIndex = index;
+        renderAdminEditor();
+      });
+
+      list.append(button);
+    });
+  }
+
+  function populateAdminForm() {
+    const show = state.editorShows[state.activeShowIndex] || createBlankShow();
+    setFieldValue("#admin-show-index", state.activeShowIndex);
+    setFieldValue("#show-date", show.date);
+    setFieldValue("#show-time", show.time);
+    setFieldValue("#show-title-input", show.title);
+    setFieldValue("#show-status", show.status);
+    setFieldValue("#show-venue", show.venue);
+    setFieldValue("#show-address", show.address);
+    setFieldValue("#show-ticket-url", show.ticket_url);
+    setFieldValue("#show-description", show.description);
+
+    const featured = document.querySelector("#show-featured");
+    if (featured) featured.checked = Boolean(show.featured);
+  }
+
+  function saveCurrentAdminShow(options = {}) {
+    const index = Number.parseInt(document.querySelector("#admin-show-index")?.value || state.activeShowIndex, 10);
+    if (!Number.isFinite(index) || index < 0 || index >= state.editorShows.length) return;
+
+    state.editorShows[index] = {
+      date: getFieldValue("#show-date"),
+      time: getFieldValue("#show-time"),
+      title: getFieldValue("#show-title-input"),
+      venue: getFieldValue("#show-venue"),
+      address: getFieldValue("#show-address"),
+      ticket_url: getFieldValue("#show-ticket-url"),
+      description: getFieldValue("#show-description"),
+      status: getFieldValue("#show-status"),
+      featured: document.querySelector("#show-featured")?.checked || false
+    };
+
+    syncAdminPreview();
+    renderAdminShowList();
+    if (!options.silent) setAdminStatus("Draft saved");
+  }
+
+  function syncAdminPreview() {
+    state.shows = normalizeShows(state.editorShows);
+    renderShows(state.shows);
+    updateFeedLabels();
+  }
+
+  async function reloadAdminShows() {
+    if (!config.showsDataUrl) throw new Error("No show data file configured");
+    const shows = await fetchShowsJson(config.showsDataUrl);
+    state.editorShows = normalizeEditableShows(shows);
+    if (!state.editorShows.length) {
+      state.editorShows.push(createBlankShow());
+    }
+    state.activeShowIndex = 0;
+    state.source = "Site admin";
+    renderAdminEditor();
+    syncAdminPreview();
+    setAdminStatus("Reloaded");
+  }
+
+  async function publishAdminShows() {
+    saveCurrentAdminShow({ silent: true });
+
+    const tokenInput = document.querySelector("#github-token");
+    const rememberToken = document.querySelector("#remember-token");
+    const token = String(tokenInput?.value || "").trim();
+    const repo = config.github || {};
+
+    if (!token) throw new Error("Add a GitHub save key");
+    if (!repo.owner || !repo.repo || !repo.showsPath) throw new Error("GitHub publishing is not configured");
+
+    if (rememberToken?.checked) {
+      window.localStorage.setItem("rapidFireGithubToken", token);
+    } else {
+      window.localStorage.removeItem("rapidFireGithubToken");
+    }
+
+    setAdminStatus("Publishing...");
+
+    const branch = repo.branch || "main";
+    const fileUrl = `https://api.github.com/repos/${repo.owner}/${repo.repo}/contents/${encodePath(repo.showsPath)}?ref=${encodeURIComponent(branch)}`;
+    const currentFile = await fetch(fileUrl, {
+      headers: getGithubHeaders(token)
+    });
+
+    if (!currentFile.ok) {
+      throw new Error(await getGithubError(currentFile, "Could not read show file"));
+    }
+
+    const current = await currentFile.json();
+    const content = `${JSON.stringify({
+      updated_at: new Date().toISOString(),
+      shows: state.editorShows.map(prepareShowForSave)
+    }, null, 2)}\n`;
+
+    const update = await fetch(`https://api.github.com/repos/${repo.owner}/${repo.repo}/contents/${encodePath(repo.showsPath)}`, {
+      method: "PUT",
+      headers: getGithubHeaders(token),
+      body: JSON.stringify({
+        message: "Update shows from hidden admin page",
+        content: toBase64Utf8(content),
+        sha: current.sha,
+        branch
+      })
+    });
+
+    if (!update.ok) {
+      throw new Error(await getGithubError(update, "Could not publish shows"));
+    }
+
+    state.source = "Site admin";
+    syncAdminPreview();
+    setAdminStatus("Published");
+  }
+
+  function prepareShowForSave(show) {
+    return {
+      date: String(show.date || "").trim(),
+      time: String(show.time || "").trim(),
+      title: String(show.title || "").trim(),
+      venue: String(show.venue || "").trim(),
+      address: String(show.address || "").trim(),
+      ticket_url: String(show.ticket_url || "").trim(),
+      description: String(show.description || "").trim(),
+      status: String(show.status || "").trim(),
+      featured: Boolean(show.featured)
+    };
+  }
+
+  function getGithubHeaders(token) {
+    return {
+      Accept: "application/vnd.github+json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+      "X-GitHub-Api-Version": "2022-11-28"
+    };
+  }
+
+  async function getGithubError(response, fallback) {
+    try {
+      const data = await response.json();
+      return data.message ? `${fallback}: ${data.message}` : fallback;
+    } catch (error) {
+      return fallback;
+    }
+  }
+
+  function encodePath(path) {
+    return String(path).split("/").map(encodeURIComponent).join("/");
+  }
+
+  function toBase64Utf8(value) {
+    const bytes = new TextEncoder().encode(value);
+    let binary = "";
+    bytes.forEach((byte) => {
+      binary += String.fromCharCode(byte);
+    });
+    return btoa(binary);
+  }
+
+  function setFieldValue(selector, value) {
+    const field = document.querySelector(selector);
+    if (field) field.value = value ?? "";
+  }
+
+  function getFieldValue(selector) {
+    return String(document.querySelector(selector)?.value || "").trim();
+  }
+
+  function setAdminStatus(message) {
+    const status = document.querySelector("#admin-edit-status");
+    if (status) status.textContent = message;
   }
 
   function parseCsv(text) {

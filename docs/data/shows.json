@@ -1,0 +1,38 @@
+{
+  "updated_at": "2026-07-30T00:00:00.000Z",
+  "shows": [
+    {
+      "date": "2026-08-16",
+      "time": "7:30 PM",
+      "title": "Lorem Ipsum",
+      "venue": "Dolor sit amet",
+      "address": "Consectetur adipiscing",
+      "ticket_url": "#booking",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "status": "Lorem ipsum",
+      "featured": true
+    },
+    {
+      "date": "2026-09-06",
+      "time": "8:00 PM",
+      "title": "Dolor Sit Amet",
+      "venue": "Consectetur elit",
+      "address": "Sed do eiusmod",
+      "ticket_url": "#booking",
+      "description": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "status": "Dolor sit",
+      "featured": false
+    },
+    {
+      "date": "2026-10-18",
+      "time": "7:00 PM",
+      "title": "Consectetur Elit",
+      "venue": "Adipiscing elit",
+      "address": "Ut enim ad minim",
+      "ticket_url": "#booking",
+      "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "status": "Amet",
+      "featured": false
+    }
+  ]
+}
