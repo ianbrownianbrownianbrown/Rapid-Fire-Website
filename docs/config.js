@@ -16,48 +16,48 @@ window.RAPID_FIRE_CONFIG = {
   },
   cast: [
     {
-      name: "The Rapid Fire Ensemble",
-      role: "Improv team",
-      bio: "Quick characters, sharper edits, and the kind of scenic commitment that makes the room lean in."
+      name: "lorem ipsum...",
+      role: "lorem ipsum...",
+      bio: "lorem ipsum..."
     },
     {
-      name: "Guest Players",
-      role: "Friends of the show",
-      bio: "Drop-in collaborators, visiting comics, and surprise teammates for special sets."
+      name: "lorem ipsum...",
+      role: "lorem ipsum...",
+      bio: "lorem ipsum..."
     }
   ],
   fallbackShows: [
     {
       date: "2026-08-16",
       time: "7:30 PM",
-      title: "Sunday Night Rapid Fire",
-      venue: "The Lantern Room",
-      address: "Venue details coming soon",
+      title: "lorem ipsum...",
+      venue: "lorem ipsum...",
+      address: "lorem ipsum...",
       ticket_url: "#booking",
-      description: "A full-throttle night of short-form games, big character swings, and crowd-fueled chaos.",
-      status: "On sale",
+      description: "lorem ipsum...",
+      status: "lorem ipsum...",
       featured: "true"
     },
     {
       date: "2026-09-06",
       time: "8:00 PM",
-      title: "Back-to-School Chaos",
-      venue: "Rapid Fire Home Stage",
-      address: "Venue details coming soon",
+      title: "lorem ipsum...",
+      venue: "lorem ipsum...",
+      address: "lorem ipsum...",
       ticket_url: "#booking",
-      description: "New suggestions, old grudges, and scenes built from whatever the audience throws at us.",
-      status: "Tickets soon",
+      description: "lorem ipsum...",
+      status: "lorem ipsum...",
       featured: "false"
     },
     {
       date: "2026-10-18",
       time: "7:00 PM",
-      title: "Costume-Prov",
-      venue: "Rapid Fire Home Stage",
-      address: "Venue details coming soon",
+      title: "lorem ipsum...",
+      venue: "lorem ipsum...",
+      address: "lorem ipsum...",
       ticket_url: "#booking",
-      description: "A spooky-season set where every character choice arrives already dressed for trouble.",
-      status: "Save the date",
+      description: "lorem ipsum...",
+      status: "lorem ipsum...",
       featured: "false"
     }
   ]
