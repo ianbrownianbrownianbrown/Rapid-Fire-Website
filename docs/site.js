@@ -63,9 +63,13 @@
 
     let ticking = false;
     const update = () => {
-      const progress = Math.min(window.scrollY / 520, 1);
-      const opacity = 0.78 - progress * 0.62;
-      document.documentElement.style.setProperty("--banner-opacity", opacity.toFixed(3));
+      const progress = Math.min(window.scrollY / 360, 1);
+      const root = document.documentElement.style;
+      const opacity = 1 - progress * 0.86;
+      root.setProperty("--banner-opacity", opacity.toFixed(3));
+      root.setProperty("--hero-top-wash", (progress * 0.52).toFixed(3));
+      root.setProperty("--hero-mid-wash", (0.08 + progress * 0.62).toFixed(3));
+      root.setProperty("--hero-bottom-wash", (0.86 + progress * 0.1).toFixed(3));
       ticking = false;
     };
 

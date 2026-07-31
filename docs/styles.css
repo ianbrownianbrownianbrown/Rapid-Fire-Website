@@ -15,7 +15,10 @@
   --green: #14d978;
   --line: rgba(37, 17, 38, 0.14);
   --shadow: rgba(37, 17, 38, 0.16);
-  --banner-opacity: 0.78;
+  --banner-opacity: 1;
+  --hero-top-wash: 0;
+  --hero-mid-wash: 0.08;
+  --hero-bottom-wash: 0.86;
 }
 
 * {
@@ -65,7 +68,7 @@ body::after {
     repeating-linear-gradient(0deg, rgba(0, 169, 255, 0.065) 0 1px, transparent 1px 72px),
     radial-gradient(circle at 12% 14%, rgba(255, 49, 49, 0.18), transparent 24rem),
     radial-gradient(circle at 88% 18%, rgba(0, 169, 255, 0.16), transparent 24rem),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.34));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.28));
   pointer-events: none;
 }
 
@@ -172,7 +175,13 @@ a {
   padding: clamp(120px, 16vw, 210px) clamp(20px, 6%, 86px) 42px;
   border-bottom: 1px solid var(--line);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.72) 56%, rgba(255, 255, 255, 0.9));
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, var(--hero-top-wash)),
+      rgba(255, 255, 255, var(--hero-mid-wash)) 48%,
+      rgba(255, 255, 255, var(--hero-bottom-wash)) 82%,
+      rgba(255, 255, 255, 0.96)
+    );
   text-align: center;
 }
 
@@ -618,7 +627,7 @@ h3 {
     display: block;
     overflow: hidden;
     border-block: 3px solid var(--ink);
-    background: #fff;
+    background: rgba(255, 255, 255, 0.92);
   }
 
   .photo-band::after {
@@ -633,6 +642,7 @@ h3 {
     display: block;
     width: 100%;
     height: 178px;
+    opacity: var(--banner-opacity);
     object-fit: cover;
     object-position: center 38%;
   }
