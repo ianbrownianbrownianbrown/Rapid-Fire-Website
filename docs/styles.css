@@ -41,7 +41,7 @@ body::before {
   inset: 0;
   z-index: -2;
   background: url("assets/rapid-fire-team.jpg") center bottom / auto 100% no-repeat;
-  opacity: 0.42;
+  opacity: 0.82;
   filter: saturate(1.08) contrast(1.04);
   pointer-events: none;
   -webkit-mask-image: linear-gradient(90deg, black 0 18%, transparent 32% 68%, black 82% 100%);
@@ -58,7 +58,7 @@ body::after {
     repeating-linear-gradient(0deg, rgba(0, 169, 255, 0.065) 0 1px, transparent 1px 72px),
     radial-gradient(circle at 12% 14%, rgba(255, 49, 49, 0.18), transparent 24rem),
     radial-gradient(circle at 88% 18%, rgba(0, 169, 255, 0.16), transparent 24rem),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.6));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.34));
   pointer-events: none;
 }
 
@@ -590,8 +590,7 @@ h3 {
   }
 
   .hero-logo {
-    width: min(156px, 42vw);
-    margin-bottom: 12px;
+    display: none;
   }
 
   .hero-actions {
@@ -627,9 +626,9 @@ h3 {
   .photo-band img {
     display: block;
     width: 100%;
-    height: 220px;
+    height: 178px;
     object-fit: cover;
-    object-position: center;
+    object-position: center 38%;
   }
 
   .ticker {

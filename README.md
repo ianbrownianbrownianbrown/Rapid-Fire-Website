@@ -2,11 +2,29 @@
 
 Static first version for the Rapid Fire improv team site. The public site lives in `docs/` so GitHub Pages can publish it without a build step.
 
-## Edit Shows
+## Edit The Site From Google Sheets
 
-The site can use sample shows from `docs/config.js` or read from a published Google Sheet CSV.
+The site can use sample content from `docs/config.js` or read from published Google Sheet CSV tabs.
 
-Use these sheet columns:
+Use the templates in `docs/`:
+
+| template | controls |
+| --- | --- |
+| `content-template.csv` | Page copy, headings, buttons, nav labels, meta text, hidden admin text |
+| `shows-template.csv` | Upcoming show cards |
+| `cast-template.csv` | Team/cast cards |
+
+The content sheet columns are:
+
+| column | purpose |
+| --- | --- |
+| `key` | The website text slot, such as `hero.tagline` |
+| `value` | The text to show on the site |
+| `where_it_appears` | Human-friendly note for editors |
+| `status` | Use `active`; use `hidden` to ignore a row |
+| `notes` | Optional editing notes |
+
+The shows sheet columns are:
 
 | column | example |
 | --- | --- |
@@ -20,7 +38,17 @@ Use these sheet columns:
 | `status` | `On sale` |
 | `featured` | `true` |
 
-After publishing the sheet as CSV, paste that public CSV URL into `googleSheetCsvUrl` in `docs/config.js`. Paste the normal shared Google Sheet edit URL into `adminSheetUrl`; the Team Edit page links there and Google handles teammate login.
+The cast sheet columns are:
+
+| column | example |
+| --- | --- |
+| `sort_order` | `1` |
+| `name` | `The Rapid Fire Ensemble` |
+| `role` | `Improv team` |
+| `bio` | `Quick characters and sharper edits.` |
+| `status` | `active` |
+
+After publishing each Google Sheet tab as CSV, paste the public CSV URLs into `contentSheetCsvUrl`, `googleSheetCsvUrl`, and `castSheetCsvUrl` in `docs/config.js`. Paste the normal shared Google Sheet edit URL into `adminSheetUrl`; the hidden Team Edit page links there and Google handles teammate login.
 
 Do not put passwords, API keys, private notes, or unreleased internal details in `docs/config.js` or the published sheet.
 

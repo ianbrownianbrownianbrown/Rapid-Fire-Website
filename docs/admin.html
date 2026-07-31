@@ -3,8 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Team Edit - Rapid Fire Improv</title>
-    <meta name="description" content="Rapid Fire Improv team editing hub.">
+    <title data-content="admin.meta.title">Team Edit - Rapid Fire Improv</title>
+    <meta
+      name="description"
+      data-content-attr="content:admin.meta.description"
+      content="Rapid Fire Improv team editing hub."
+    >
     <meta name="robots" content="noindex, nofollow">
     <link rel="stylesheet" href="styles.css">
     <script defer src="config.js"></script>
@@ -18,36 +22,45 @@
         <img
           data-logo
           src="assets/rapid-fire-logo-neon.png"
+          data-content-attr="alt:site.logo_alt"
           alt=""
         >
         <span data-team-name>Rapid Fire Improv</span>
       </a>
       <nav class="site-nav" aria-label="Admin navigation">
-        <a href="index.html#shows">Shows</a>
-        <a href="index.html#booking">Booking</a>
-        <a href="admin.html" aria-current="page">Team Edit</a>
+        <a href="index.html#shows" data-content="nav.shows">Shows</a>
+        <a href="index.html#booking" data-content="nav.booking">Booking</a>
+        <a href="admin.html" aria-current="page" data-content="admin.nav.team_edit">Team Edit</a>
       </nav>
     </header>
 
     <main>
       <section class="admin-hero" aria-labelledby="admin-title">
-        <p class="eyebrow">Team hub</p>
-        <h1 id="admin-title">Update the Next Show</h1>
-        <p class="lede">
-          Open the shared team sheet, make the change, and the public page will follow that feed.
+        <p class="eyebrow" data-content="admin.hero.eyebrow">Team hub</p>
+        <h1 id="admin-title" data-content="admin.hero.title">Update the Site</h1>
+        <p class="lede" data-content="admin.hero.body">
+          Open the shared control sheet, make the change, and the public page will follow that feed.
         </p>
         <div class="hero-actions">
-          <a id="admin-sheet-link" class="button button-primary is-disabled" href="#" aria-disabled="true">
-            Open Show Sheet
+          <a
+            id="admin-sheet-link"
+            class="button button-primary is-disabled"
+            href="#"
+            aria-disabled="true"
+            data-content="admin.hero.open_sheet_button"
+          >
+            Open Site Sheet
           </a>
-          <a class="button button-secondary" href="index.html#shows">View Public Shows</a>
+          <a class="button button-secondary" href="index.html#shows" data-content="admin.hero.view_public_button">
+            View Public Shows
+          </a>
         </div>
       </section>
 
       <section id="admin-preview" class="section section-shows" aria-labelledby="admin-preview-title">
         <div class="section-head">
-          <p class="eyebrow">Preview</p>
-          <h2 id="admin-preview-title">Current Feed</h2>
+          <p class="eyebrow" data-content="admin.preview.eyebrow">Preview</p>
+          <h2 id="admin-preview-title" data-content="admin.preview.title">Current Feed</h2>
           <p id="events-source">Sample data</p>
         </div>
         <div id="shows-grid" class="shows-grid compact" aria-live="polite">
@@ -58,7 +71,7 @@
 
     <footer class="site-footer">
       <span data-team-name>Rapid Fire Improv</span>
-      <a href="index.html">Public Site</a>
+      <a href="index.html" data-content="admin.footer.public_site">Public Site</a>
     </footer>
   </body>
 </html>

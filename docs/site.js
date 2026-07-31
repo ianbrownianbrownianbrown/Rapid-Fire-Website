@@ -1,48 +1,127 @@
 (function () {
   const config = window.RAPID_FIRE_CONFIG || {};
   const state = {
+    content: {},
+    contentSource: "Local defaults",
     source: "Sample data",
-    shows: Array.isArray(config.fallbackShows) ? config.fallbackShows : []
+    castSource: "Local defaults",
+    shows: Array.isArray(config.fallbackShows) ? config.fallbackShows : [],
+    cast: Array.isArray(config.cast) ? config.cast : []
   };
 
   document.addEventListener("DOMContentLoaded", init);
 
-  function init() {
+  async function init() {
+    state.content = {
+      ...getDefaultContent(),
+      ...(config.content || {})
+    };
+
     applyConfig();
+    applyContent();
+
+    const [contentResult, showsResult, castResult] = await Promise.allSettled([
+      loadContent(),
+      loadShows(),
+      loadCast()
+    ]);
+
+    if (contentResult.status === "fulfilled") {
+      state.content = {
+        ...state.content,
+        ...contentResult.value.content
+      };
+      state.contentSource = contentResult.value.source;
+    }
+
+    if (showsResult.status === "fulfilled") {
+      state.shows = normalizeShows(showsResult.value.shows);
+      state.source = showsResult.value.source;
+    } else {
+      state.shows = normalizeShows(config.fallbackShows || []);
+      state.source = "Sample data";
+    }
+
+    if (castResult.status === "fulfilled") {
+      state.cast = normalizeCast(castResult.value.cast);
+      state.castSource = castResult.value.source;
+    } else {
+      state.cast = normalizeCast(config.cast || []);
+      state.castSource = "Local defaults";
+    }
+
+    applyConfig();
+    applyContent();
     renderCast();
-    loadShows()
-      .then(({ shows, source }) => {
-        state.shows = normalizeShows(shows);
-        state.source = source;
-        renderShows(state.shows);
-        updateFeedLabels();
-      })
-      .catch(() => {
-        state.shows = normalizeShows(config.fallbackShows || []);
-        state.source = "Sample data";
-        renderShows(state.shows);
-        updateFeedLabels();
-      });
+    renderShows(state.shows);
+    updateFeedLabels();
+  }
+
+  function getDefaultContent() {
+    return {
+      "site.name": config.teamName || "Rapid Fire Improv",
+      "site.logo_alt": "",
+      "site.footer_text": config.teamName || "Rapid Fire Improv",
+      "meta.title": "Rapid Fire Improv",
+      "meta.description":
+        "Rapid Fire Improv brings comedy without borders, in-fighting, and the greatest comedy on planet earth.",
+      "meta.og_title": "Rapid Fire Improv",
+      "meta.og_description": "Upcoming shows, booking, and team updates for Rapid Fire Improv.",
+      "nav.shows": "Shows",
+      "nav.team": "Team",
+      "nav.booking": "Booking",
+      "hero.logo_alt": "Rapid Fire Improv neon logo",
+      "hero.eyebrow": "Live improv comedy",
+      "hero.tagline": config.tagline || "Comedy without borders. In-fighting. Greatest comedy on planet earth.",
+      "hero.primary_button": "Upcoming Shows",
+      "hero.secondary_button": "Book the Team",
+      "hero.show_count_label_singular": "upcoming show",
+      "hero.show_count_label_plural": "upcoming shows",
+      "photo.alt": "Rapid Fire Improv performers lying shoulder to shoulder and smiling at the camera",
+      "ticker.1": "Trust the first idea",
+      "ticker.2": "Commit to the bit",
+      "ticker.3": "Make the weird choice",
+      "ticker.4": "Bring the room with you",
+      "shows.eyebrow": "Upcoming dates",
+      "shows.title": "Next Shows",
+      "shows.body": "Live comedy, fast turns, and a new night every time.",
+      "shows.loading": "Loading shows...",
+      "shows.empty": "No upcoming shows are listed yet.",
+      "shows.ticket_label": "Tickets",
+      "shows.details_label": "Details Soon",
+      "team.eyebrow": "The ensemble",
+      "team.title": "Fast, Fearless, Fully In",
+      "team.body": "Rapid Fire builds scenes from audience fuel and a shared appetite for the wild turn.",
+      "booking.eyebrow": "Booking",
+      "booking.title": "Bring Rapid Fire to the Room",
+      "booking.body": "Stage shows, private events, fundraisers, workshops, and high-speed comedy collisions.",
+      "booking.button_label": "Email Booking",
+      "admin.meta.title": "Team Edit - Rapid Fire Improv",
+      "admin.meta.description": "Rapid Fire Improv team editing hub.",
+      "admin.nav.team_edit": "Team Edit",
+      "admin.hero.eyebrow": "Team hub",
+      "admin.hero.title": "Update the Site",
+      "admin.hero.body": "Open the shared control sheet, make the change, and the public page will follow that feed.",
+      "admin.hero.open_sheet_button": "Open Site Sheet",
+      "admin.hero.view_public_button": "View Public Shows",
+      "admin.preview.eyebrow": "Preview",
+      "admin.preview.title": "Current Feed",
+      "admin.source.sample": "Sample data",
+      "admin.source.google": "Google Sheet",
+      "admin.footer.public_site": "Public Site"
+    };
   }
 
   function applyConfig() {
-    setAll("[data-team-name]", config.teamName || "Rapid Fire Improv");
-    setAll(
-      "[data-tagline]",
-      config.tagline || "Comedy without borders. In-fighting. Greatest comedy on planet earth."
-    );
-
     document.querySelectorAll("[data-logo]").forEach((image) => {
       if (config.logoUrl) {
         image.src = config.logoUrl;
       }
-      image.alt = image.alt || "";
     });
 
     const bookingEmail = document.querySelector("#booking-email");
     if (bookingEmail && config.contactEmail) {
       bookingEmail.href = `mailto:${config.contactEmail}`;
-      bookingEmail.textContent = config.contactEmail;
     }
 
     const sheetLink = document.querySelector("#admin-sheet-link");
@@ -55,14 +134,56 @@
     }
   }
 
+  function applyContent() {
+    setAll("[data-team-name]", getContent("site.name"));
+    setAll("[data-tagline]", getContent("hero.tagline"));
+
+    document.querySelectorAll("[data-content]").forEach((element) => {
+      const value = getContent(element.dataset.content);
+      if (value !== "") {
+        element.textContent = value;
+      }
+    });
+
+    document.querySelectorAll("[data-content-attr]").forEach((element) => {
+      const pairs = element.dataset.contentAttr.split(";").map((item) => item.trim()).filter(Boolean);
+      pairs.forEach((pair) => {
+        const separator = pair.indexOf(":");
+        if (separator === -1) return;
+        const attr = pair.slice(0, separator).trim();
+        const key = pair.slice(separator + 1).trim();
+        const value = getContent(key);
+        if (attr && value !== "") {
+          element.setAttribute(attr, value);
+        }
+      });
+    });
+  }
+
+  async function loadContent() {
+    if (config.contentSheetCsvUrl) {
+      const response = await fetch(config.contentSheetCsvUrl, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("Could not load content sheet");
+      }
+      const rows = parseCsv(await response.text());
+      const content = rowsToContent(rows);
+      if (Object.keys(content).length > 0) {
+        return { content, source: "Google Sheet" };
+      }
+    }
+
+    return { content: {}, source: "Local defaults" };
+  }
+
   async function loadShows() {
     if (config.googleSheetCsvUrl) {
       const response = await fetch(config.googleSheetCsvUrl, { cache: "no-store" });
       if (!response.ok) {
-        throw new Error("Could not load sheet");
+        throw new Error("Could not load shows sheet");
       }
       const rows = parseCsv(await response.text());
-      const shows = rowsToShows(rows);
+      const shows = rowsToObjects(rows);
       if (shows.length > 0) {
         return { shows, source: "Google Sheet" };
       }
@@ -71,6 +192,25 @@
     return {
       shows: Array.isArray(config.fallbackShows) ? config.fallbackShows : [],
       source: "Sample data"
+    };
+  }
+
+  async function loadCast() {
+    if (config.castSheetCsvUrl) {
+      const response = await fetch(config.castSheetCsvUrl, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("Could not load cast sheet");
+      }
+      const rows = parseCsv(await response.text());
+      const cast = rowsToObjects(rows);
+      if (cast.length > 0) {
+        return { cast, source: "Google Sheet" };
+      }
+    }
+
+    return {
+      cast: Array.isArray(config.cast) ? config.cast : [],
+      source: "Local defaults"
     };
   }
 
@@ -105,6 +245,18 @@
       });
   }
 
+  function normalizeCast(cast) {
+    return cast
+      .filter((person) => person && String(person.status || "").toLowerCase() !== "hidden")
+      .map((person, index) => ({
+        name: String(person.name || "Rapid Fire Player").trim(),
+        role: String(person.role || "Performer").trim(),
+        bio: String(person.bio || "").trim(),
+        sort_order: Number.parseFloat(person.sort_order || person.order || index + 1) || index + 1
+      }))
+      .sort((a, b) => a.sort_order - b.sort_order);
+  }
+
   function renderShows(shows) {
     const grid = document.querySelector("#shows-grid");
     if (!grid) return;
@@ -114,7 +266,7 @@
     if (!shows.length) {
       const empty = document.createElement("p");
       empty.className = "empty-state";
-      empty.textContent = "No upcoming shows are listed yet.";
+      empty.textContent = getContent("shows.empty");
       grid.append(empty);
       updateCount(0);
       return;
@@ -164,7 +316,7 @@
     action.className = "show-link";
     const hasTicketUrl = show.ticket_url && !show.ticket_url.startsWith("#");
     action.href = show.ticket_url || "#booking";
-    action.textContent = hasTicketUrl ? "Tickets" : "Details Soon";
+    action.textContent = hasTicketUrl ? getContent("shows.ticket_label") : getContent("shows.details_label");
     if (hasTicketUrl) {
       action.target = "_blank";
       action.rel = "noopener";
@@ -180,22 +332,21 @@
     const grid = document.querySelector("#cast-grid");
     if (!grid) return;
 
-    const cast = Array.isArray(config.cast) ? config.cast : [];
     grid.textContent = "";
 
-    cast.forEach((person) => {
+    state.cast.forEach((person) => {
       const card = document.createElement("article");
       card.className = "cast-card";
 
       const name = document.createElement("h3");
-      name.textContent = person.name || "Rapid Fire Player";
+      name.textContent = person.name;
 
       const role = document.createElement("p");
       role.className = "cast-role";
-      role.textContent = person.role || "Performer";
+      role.textContent = person.role;
 
       const bio = document.createElement("p");
-      bio.textContent = person.bio || "";
+      bio.textContent = person.bio;
 
       card.append(name, role, bio);
       grid.append(card);
@@ -206,13 +357,17 @@
     const number = document.querySelector("#show-count-number");
     const label = document.querySelector("#show-count-label");
     if (number) number.textContent = String(count);
-    if (label) label.textContent = count === 1 ? "upcoming show" : "upcoming shows";
+    if (label) {
+      label.textContent =
+        count === 1 ? getContent("hero.show_count_label_singular") : getContent("hero.show_count_label_plural");
+    }
   }
 
   function updateFeedLabels() {
     const source = document.querySelector("#events-source");
     if (source) {
-      source.textContent = state.source;
+      source.textContent =
+        state.source === "Google Sheet" ? getContent("admin.source.google") : getContent("admin.source.sample");
     }
   }
 
@@ -251,17 +406,33 @@
     return rows.filter((csvRow) => csvRow.some((value) => value.trim() !== ""));
   }
 
-  function rowsToShows(rows) {
+  function rowsToContent(rows) {
+    const objects = rowsToObjects(rows);
+    const content = {};
+
+    objects.forEach((row) => {
+      const key = String(row.key || "").trim();
+      const value = String(row.value || row.text || "").trim();
+      const status = String(row.status || "").trim().toLowerCase();
+      if (key && status !== "hidden") {
+        content[key] = value;
+      }
+    });
+
+    return content;
+  }
+
+  function rowsToObjects(rows) {
     if (rows.length < 2) return [];
 
     const headers = rows[0].map((header) => mapHeader(header));
 
     return rows.slice(1).map((row) => {
-      const show = {};
+      const item = {};
       headers.forEach((header, index) => {
-        if (header) show[header] = row[index] || "";
+        if (header) item[header] = row[index] || "";
       });
-      return show;
+      return item;
     });
   }
 
@@ -280,7 +451,12 @@
       tickets: "ticket_url",
       ticket_link: "ticket_url",
       ticket_url: "ticket_url",
-      featured_show: "featured"
+      featured_show: "featured",
+      sort: "sort_order",
+      display_order: "sort_order",
+      order: "sort_order",
+      copy: "value",
+      text: "value"
     };
 
     return aliases[key] || key;
@@ -300,6 +476,10 @@
 
   function isTruthy(value) {
     return ["1", "true", "yes", "featured"].includes(String(value).trim().toLowerCase());
+  }
+
+  function getContent(key) {
+    return String(state.content[key] ?? "");
   }
 
   function setAll(selector, text) {

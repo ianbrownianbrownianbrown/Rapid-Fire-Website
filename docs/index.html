@@ -3,14 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Rapid Fire Improv</title>
+    <title data-content="meta.title">Rapid Fire Improv</title>
     <meta
       name="description"
+      data-content-attr="content:meta.description"
       content="Rapid Fire Improv brings comedy without borders, in-fighting, and the greatest comedy on planet earth."
     >
-    <meta property="og:title" content="Rapid Fire Improv">
+    <meta property="og:title" data-content-attr="content:meta.og_title" content="Rapid Fire Improv">
     <meta
       property="og:description"
+      data-content-attr="content:meta.og_description"
       content="Upcoming shows, booking, and team updates for Rapid Fire Improv."
     >
     <meta property="og:type" content="website">
@@ -26,34 +28,48 @@
         <img
           data-logo
           src="assets/rapid-fire-logo-neon.png"
+          data-content-attr="alt:site.logo_alt"
           alt=""
         >
         <span data-team-name>Rapid Fire Improv</span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="#shows">Shows</a>
-        <a href="#team">Team</a>
-        <a href="#booking">Booking</a>
+        <a href="#shows" data-content="nav.shows">Shows</a>
+        <a href="#team" data-content="nav.team">Team</a>
+        <a href="#booking" data-content="nav.booking">Booking</a>
       </nav>
     </header>
 
     <main id="top">
+      <section class="photo-band" aria-label="Rapid Fire Improv team photo">
+        <img
+          src="assets/rapid-fire-team.jpg"
+          data-content-attr="alt:photo.alt"
+          alt="Rapid Fire Improv performers lying shoulder to shoulder and smiling at the camera"
+        >
+      </section>
+
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-poster">
           <img
             class="hero-logo"
             data-logo
             src="assets/rapid-fire-logo-neon.png"
+            data-content-attr="alt:hero.logo_alt"
             alt="Rapid Fire Improv neon logo"
           >
-          <p class="eyebrow">Live improv comedy</p>
+          <p class="eyebrow" data-content="hero.eyebrow">Live improv comedy</p>
           <h1 id="hero-title" data-team-name>Rapid Fire Improv</h1>
           <p class="lede" data-tagline>
             Comedy without borders. In-fighting. Greatest comedy on planet earth.
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#shows">Upcoming Shows</a>
-            <a class="button button-secondary" href="#booking">Book the Team</a>
+            <a class="button button-primary" href="#shows" data-content="hero.primary_button">
+              Upcoming Shows
+            </a>
+            <a class="button button-secondary" href="#booking" data-content="hero.secondary_button">
+              Book the Team
+            </a>
           </div>
           <div class="count-lockup">
             <strong id="show-count-number">0</strong>
@@ -62,56 +78,56 @@
         </div>
       </section>
 
-      <section class="photo-band" aria-label="Rapid Fire Improv team photo">
-        <img
-          src="assets/rapid-fire-team.jpg"
-          alt="Rapid Fire Improv performers lying shoulder to shoulder and smiling at the camera"
-        >
-      </section>
-
       <section class="ticker" aria-label="Rapid Fire values">
-        <span>Trust the first idea</span>
-        <span>Commit to the bit</span>
-        <span>Make the weird choice</span>
-        <span>Bring the room with you</span>
+        <span data-content="ticker.1">Trust the first idea</span>
+        <span data-content="ticker.2">Commit to the bit</span>
+        <span data-content="ticker.3">Make the weird choice</span>
+        <span data-content="ticker.4">Bring the room with you</span>
       </section>
 
       <section id="shows" class="section section-shows" aria-labelledby="shows-title">
         <div class="section-head">
-          <p class="eyebrow">Upcoming dates</p>
-          <h2 id="shows-title">Next Shows</h2>
-          <p>Live comedy, fast turns, and a new night every time.</p>
+          <p class="eyebrow" data-content="shows.eyebrow">Upcoming dates</p>
+          <h2 id="shows-title" data-content="shows.title">Next Shows</h2>
+          <p data-content="shows.body">Live comedy, fast turns, and a new night every time.</p>
         </div>
         <div id="shows-grid" class="shows-grid" aria-live="polite">
-          <p class="loading">Loading shows...</p>
+          <p class="loading" data-content="shows.loading">Loading shows...</p>
         </div>
       </section>
 
       <section id="team" class="section section-team" aria-labelledby="team-title">
         <div class="section-head">
-          <p class="eyebrow">The ensemble</p>
-          <h2 id="team-title">Fast, Fearless, Fully In</h2>
-          <p>Rapid Fire builds scenes from audience fuel and a shared appetite for the wild turn.</p>
+          <p class="eyebrow" data-content="team.eyebrow">The ensemble</p>
+          <h2 id="team-title" data-content="team.title">Fast, Fearless, Fully In</h2>
+          <p data-content="team.body">
+            Rapid Fire builds scenes from audience fuel and a shared appetite for the wild turn.
+          </p>
         </div>
         <div id="cast-grid" class="cast-grid"></div>
       </section>
 
       <section id="booking" class="booking" aria-labelledby="booking-title">
         <div>
-          <p class="eyebrow">Booking</p>
-          <h2 id="booking-title">Bring Rapid Fire to the Room</h2>
-          <p>
+          <p class="eyebrow" data-content="booking.eyebrow">Booking</p>
+          <h2 id="booking-title" data-content="booking.title">Bring Rapid Fire to the Room</h2>
+          <p data-content="booking.body">
             Stage shows, private events, fundraisers, workshops, and high-speed comedy collisions.
           </p>
         </div>
-        <a id="booking-email" class="button button-primary" href="mailto:booking@rapidfireimprov.com">
+        <a
+          id="booking-email"
+          class="button button-primary"
+          href="mailto:booking@rapidfireimprov.com"
+          data-content="booking.button_label"
+        >
           Email Booking
         </a>
       </section>
     </main>
 
     <footer class="site-footer">
-      <span data-team-name>Rapid Fire Improv</span>
+      <span data-content="site.footer_text">Rapid Fire Improv</span>
     </footer>
   </body>
 </html>

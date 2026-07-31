@@ -4,8 +4,11 @@ window.RAPID_FIRE_CONFIG = {
   tagline: "Comedy without borders. In-fighting. Greatest comedy on planet earth.",
   logoUrl: "assets/rapid-fire-logo-neon.png",
   contactEmail: "booking@rapidfireimprov.com",
+  contentSheetCsvUrl: "",
   googleSheetCsvUrl: "",
+  castSheetCsvUrl: "",
   adminSheetUrl: "",
+  content: {},
   socials: {
     instagram: "",
     youtube: "",
