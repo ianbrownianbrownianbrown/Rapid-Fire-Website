@@ -4,9 +4,9 @@ window.RAPID_FIRE_CONFIG = {
   tagline: "Comedy without borders. In-fighting. Greatest comedy on planet earth.",
   logoUrl: "assets/rapid-fire-logo-neon.png",
   contactEmail: "booking@rapidfireimprov.com",
-  contentSheetCsvUrl: "",
-  googleSheetCsvUrl: "",
-  castSheetCsvUrl: "",
+  contentSheetCsvUrl: "https://docs.google.com/spreadsheets/d/13I2AXsan5MFERINJpTIhSWPBocM4I5w5tXZzvJE6wTs/gviz/tq?tqx=out:csv&gid=2110133411",
+  googleSheetCsvUrl: "https://docs.google.com/spreadsheets/d/13I2AXsan5MFERINJpTIhSWPBocM4I5w5tXZzvJE6wTs/gviz/tq?tqx=out:csv&gid=699377788",
+  castSheetCsvUrl: "https://docs.google.com/spreadsheets/d/13I2AXsan5MFERINJpTIhSWPBocM4I5w5tXZzvJE6wTs/gviz/tq?tqx=out:csv&gid=1745504273",
   adminSheetUrl: "https://docs.google.com/spreadsheets/d/13I2AXsan5MFERINJpTIhSWPBocM4I5w5tXZzvJE6wTs/edit?usp=drivesdk",
   content: {},
   socials: {
