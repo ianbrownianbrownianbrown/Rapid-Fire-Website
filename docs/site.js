@@ -27,7 +27,10 @@
 
   function applyConfig() {
     setAll("[data-team-name]", config.teamName || "Rapid Fire Improv");
-    setAll("[data-tagline]", config.tagline || "Fast scenes. Big swings. No brakes.");
+    setAll(
+      "[data-tagline]",
+      config.tagline || "Comedy without borders. In-fighting. Greatest comedy on planet earth."
+    );
 
     document.querySelectorAll("[data-logo]").forEach((image) => {
       if (config.logoUrl) {

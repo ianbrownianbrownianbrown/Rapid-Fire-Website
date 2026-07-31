@@ -1,8 +1,8 @@
 // Public site settings. Keep secrets out of this file.
 window.RAPID_FIRE_CONFIG = {
   teamName: "Rapid Fire Improv",
-  tagline: "Fast scenes. Big swings. No brakes.",
-  logoUrl: "https://dhftlfjula7qg.cloudfront.net/images/event/Rapid%20fire%20logo%20neon.png",
+  tagline: "Comedy without borders. In-fighting. Greatest comedy on planet earth.",
+  logoUrl: "assets/rapid-fire-logo-neon.png",
   contactEmail: "booking@rapidfireimprov.com",
   googleSheetCsvUrl: "",
   adminSheetUrl: "",
