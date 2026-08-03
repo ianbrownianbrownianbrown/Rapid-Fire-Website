@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-03T15:27:52.145Z",
+  "updated_at": "2026-08-03T15:48:04.147Z",
   "content": {
     "site.name": "Rapid Fire Improv",
     "site.footer_text": "Rapid Fire Improv",
@@ -19,7 +19,7 @@
     "social.google_reviews_url": "https://share.google/KeBiRjUnpKsCgZqpJ",
     "social.google_reviews_label": "Google reviews",
     "hero.eyebrow": "Live improv comedy",
-    "hero.tagline": "Comedy without borders. In-fighting. Greatest comedy on planet earth.",
+    "hero.tagline": "Comedy without borders. In-fighting. Greatest performances on planet earth.",
     "hero.primary_button": "Upcoming Shows",
     "hero.secondary_button": "Book the Team",
     "hero.show_count_label_singular": "upcoming show",
@@ -39,7 +39,7 @@
     "booking.eyebrow": "Booking",
     "booking.title": "Bring Rapid Fire to the Room",
     "booking.body": "DM us on Instagram or reach out to",
-    "booking.email": "rapidfireimprov@gmail.com",
+    "booking.email": "booking@rapidfireimprov.com",
     "booking.button_label": "Email Booking",
     "admin.meta.title": "Team Edit - Rapid Fire Improv",
     "admin.meta.description": "Rapid Fire Improv team editing hub.",
