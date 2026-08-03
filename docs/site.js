@@ -2,6 +2,8 @@
   const config = window.RAPID_FIRE_CONFIG || {};
   const state = {
     content: {},
+    defaultContent: {},
+    editorContent: {},
     contentSource: "Local defaults",
     source: "Sample data",
     castSource: "Local defaults",
@@ -11,11 +13,116 @@
     cast: Array.isArray(config.cast) ? config.cast : []
   };
 
+  const COPY_FIELD_GROUPS = [
+    {
+      title: "Site Basics",
+      fields: [
+        { key: "site.name", label: "Team name" },
+        { key: "site.footer_text", label: "Footer text" },
+        { key: "site.logo_alt", label: "Logo alt text" },
+        { key: "photo.alt", label: "Team photo alt text", multiline: true }
+      ]
+    },
+    {
+      title: "Meta",
+      fields: [
+        { key: "meta.title", label: "Browser title" },
+        { key: "meta.description", label: "Search description", multiline: true },
+        { key: "meta.og_title", label: "Share title" },
+        { key: "meta.og_description", label: "Share description", multiline: true }
+      ]
+    },
+    {
+      title: "Navigation",
+      fields: [
+        { key: "nav.shows", label: "Shows nav label" },
+        { key: "nav.team", label: "Team nav label" },
+        { key: "nav.booking", label: "Booking nav label" }
+      ]
+    },
+    {
+      title: "Hero",
+      fields: [
+        { key: "hero.eyebrow", label: "Small label" },
+        { key: "hero.tagline", label: "Tagline", multiline: true },
+        { key: "hero.primary_button", label: "Primary button" },
+        { key: "hero.secondary_button", label: "Secondary button" },
+        { key: "hero.show_count_label_singular", label: "Show count singular" },
+        { key: "hero.show_count_label_plural", label: "Show count plural" },
+        { key: "hero.logo_alt", label: "Hero logo alt text" }
+      ]
+    },
+    {
+      title: "Shows Section",
+      fields: [
+        { key: "shows.eyebrow", label: "Small label" },
+        { key: "shows.title", label: "Heading" },
+        { key: "shows.body", label: "Intro copy", multiline: true },
+        { key: "shows.loading", label: "Loading text" },
+        { key: "shows.empty", label: "Empty state" },
+        { key: "shows.ticket_label", label: "Ticket link label" },
+        { key: "shows.details_label", label: "Details link label" }
+      ]
+    },
+    {
+      title: "Ensemble Section",
+      fields: [
+        { key: "team.eyebrow", label: "Small label" },
+        { key: "team.title", label: "Heading" },
+        { key: "team.subhead", label: "Subheading", multiline: true },
+        { key: "team.body", label: "Body copy", multiline: true }
+      ]
+    },
+    {
+      title: "Booking Section",
+      fields: [
+        { key: "booking.eyebrow", label: "Small label" },
+        { key: "booking.title", label: "Heading" },
+        { key: "booking.body", label: "Body copy", multiline: true },
+        { key: "booking.button_label", label: "Button label" }
+      ]
+    },
+    {
+      title: "Hidden Admin Page",
+      fields: [
+        { key: "admin.meta.title", label: "Admin browser title" },
+        { key: "admin.meta.description", label: "Admin search description", multiline: true },
+        { key: "admin.nav.team_edit", label: "Admin nav label" },
+        { key: "admin.hero.eyebrow", label: "Admin hero small label" },
+        { key: "admin.hero.title", label: "Admin hero heading" },
+        { key: "admin.hero.body", label: "Admin hero body", multiline: true },
+        { key: "admin.hero.edit_copy_button", label: "Edit copy button" },
+        { key: "admin.hero.edit_shows_button", label: "Edit shows button" },
+        { key: "admin.hero.view_public_button", label: "View public button" },
+        { key: "admin.copy.eyebrow", label: "Copy editor small label" },
+        { key: "admin.copy.title", label: "Copy editor heading" },
+        { key: "admin.copy.body", label: "Copy editor body", multiline: true },
+        { key: "admin.copy.save_draft", label: "Copy draft button" },
+        { key: "admin.copy.publish", label: "Copy publish button" },
+        { key: "admin.copy.reload", label: "Copy reload button" },
+        { key: "admin.editor.eyebrow", label: "Show editor small label" },
+        { key: "admin.editor.title", label: "Show editor heading" },
+        { key: "admin.editor.list_title", label: "Show list title" },
+        { key: "admin.editor.new_show", label: "New show button" },
+        { key: "admin.editor.save_draft", label: "Show draft button" },
+        { key: "admin.editor.delete_show", label: "Delete show button" },
+        { key: "admin.editor.publish", label: "Show publish button" },
+        { key: "admin.editor.reload", label: "Show reload button" },
+        { key: "admin.preview.eyebrow", label: "Preview small label" },
+        { key: "admin.preview.title", label: "Preview heading" },
+        { key: "admin.footer.public_site", label: "Public site footer link" }
+      ]
+    }
+  ];
+
+  const COPY_FIELDS = COPY_FIELD_GROUPS.flatMap((group) => group.fields);
+
   document.addEventListener("DOMContentLoaded", init);
 
   async function init() {
+    state.defaultContent = getDefaultContent();
     state.content = {
-      ...getDefaultContent(),
+      ...state.defaultContent,
       ...(config.content || {})
     };
 
@@ -57,6 +164,7 @@
     renderShows(state.shows);
     updateFeedLabels();
     initAdminEditor();
+    initContentEditor();
   }
 
   function initBannerFade() {
@@ -103,10 +211,6 @@
       "hero.show_count_label_singular": "upcoming show",
       "hero.show_count_label_plural": "upcoming shows",
       "photo.alt": "Rapid Fire Improv performers lying shoulder to shoulder and smiling at the camera",
-      "ticker.1": "Lorem ipsum",
-      "ticker.2": "Dolor sit amet",
-      "ticker.3": "Consectetur",
-      "ticker.4": "Adipiscing elit",
       "shows.eyebrow": "Lorem ipsum",
       "shows.title": "Dolor Sit Amet",
       "shows.body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -114,21 +218,30 @@
       "shows.empty": "Lorem ipsum dolor sit amet.",
       "shows.ticket_label": "Lorem ipsum",
       "shows.details_label": "Dolor sit",
-      "team.eyebrow": "Consectetur",
-      "team.title": "Adipiscing Elit",
-      "team.body": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "booking.eyebrow": "Sed do",
-      "booking.title": "Eiusmod Tempor",
-      "booking.body": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "booking.button_label": "Lorem ipsum",
+      "team.eyebrow": "The ensemble",
+      "team.title": "Stories Built in the Room",
+      "team.subhead": "Narrative long-form improv that turns audience sparks into strange little worlds.",
+      "team.body":
+        "From one-shot DnD campaigns inspired by audience suggestions to interwoven stories about a made-up town, we take a narrative-driven approach to long-form improv that lets audiences watch a whole world snap into place in real time.",
+      "booking.eyebrow": "Booking",
+      "booking.title": "Bring Rapid Fire to the Room",
+      "booking.body": "Stage shows, private events, fundraisers, workshops, and high-speed comedy collisions.",
+      "booking.button_label": "Email Booking",
       "admin.meta.title": "Team Edit - Rapid Fire Improv",
       "admin.meta.description": "Rapid Fire Improv team editing hub.",
       "admin.nav.team_edit": "Team Edit",
       "admin.hero.eyebrow": "Team hub",
       "admin.hero.title": "Update the Site",
-      "admin.hero.body": "Add and edit upcoming shows from the hidden team page.",
+      "admin.hero.body": "Edit upcoming shows and the words across the public page from this hidden team page.",
+      "admin.hero.edit_copy_button": "Edit Copy",
       "admin.hero.edit_shows_button": "Edit Shows",
       "admin.hero.view_public_button": "View Public Shows",
+      "admin.copy.eyebrow": "Site copy",
+      "admin.copy.title": "Copy Control",
+      "admin.copy.body": "Edit the headings, buttons, descriptions, and hidden-page labels across the site.",
+      "admin.copy.save_draft": "Save Copy Draft",
+      "admin.copy.publish": "Publish Copy",
+      "admin.copy.reload": "Reload Copy",
       "admin.editor.eyebrow": "Shows",
       "admin.editor.title": "Show Control",
       "admin.editor.list_title": "Upcoming Shows",
@@ -187,6 +300,13 @@
   }
 
   async function loadContent() {
+    if (config.contentDataUrl) {
+      const content = await fetchContentJson(config.contentDataUrl);
+      if (Object.keys(content).length > 0) {
+        return { content, source: "Site admin" };
+      }
+    }
+
     if (config.contentSheetCsvUrl) {
       const response = await fetch(config.contentSheetCsvUrl, { cache: "no-store" });
       if (!response.ok) {
@@ -200,6 +320,18 @@
     }
 
     return { content: {}, source: "Local defaults" };
+  }
+
+  async function fetchContentJson(url) {
+    const separator = url.includes("?") ? "&" : "?";
+    const response = await fetch(`${url}${separator}v=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error("Could not load site copy");
+    }
+
+    const data = await response.json();
+    const content = data && typeof data.content === "object" ? data.content : data;
+    return content && !Array.isArray(content) ? content : {};
   }
 
   async function loadShows() {
@@ -445,18 +577,152 @@
     }
   }
 
+  function initContentEditor() {
+    const form = document.querySelector("#admin-copy-form");
+    if (!form) return;
+
+    state.editorContent = {
+      ...state.defaultContent,
+      ...state.content
+    };
+
+    initStoredToken("#copy-github-token", "#copy-remember-token");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      saveCurrentContentDraft();
+    });
+
+    document.querySelector("#admin-publish-copy")?.addEventListener("click", () => {
+      publishAdminContent().catch((error) => {
+        setAdminCopyStatus(error.message || "Could not publish copy");
+      });
+    });
+
+    document.querySelector("#admin-reload-copy")?.addEventListener("click", () => {
+      reloadAdminContent().catch((error) => {
+        setAdminCopyStatus(error.message || "Could not reload copy");
+      });
+    });
+
+    renderContentEditor();
+  }
+
+  function renderContentEditor() {
+    const container = document.querySelector("#admin-copy-fields");
+    if (!container) return;
+
+    container.textContent = "";
+
+    COPY_FIELD_GROUPS.forEach((group) => {
+      const fieldset = document.createElement("fieldset");
+      fieldset.className = "copy-group";
+
+      const legend = document.createElement("legend");
+      legend.textContent = group.title;
+      fieldset.append(legend);
+
+      group.fields.forEach((field) => {
+        const label = document.createElement("label");
+        label.className = "copy-field";
+
+        const labelText = document.createElement("span");
+        labelText.textContent = field.label;
+
+        const keyText = document.createElement("span");
+        keyText.className = "copy-field-key";
+        keyText.textContent = field.key;
+
+        const input = document.createElement(field.multiline ? "textarea" : "input");
+        input.dataset.copyKey = field.key;
+        input.value = String(state.editorContent[field.key] ?? "");
+        if (field.multiline) {
+          input.rows = 4;
+        } else {
+          input.type = "text";
+        }
+
+        label.append(labelText, keyText, input);
+        fieldset.append(label);
+      });
+
+      container.append(fieldset);
+    });
+  }
+
+  function saveCurrentContentDraft(options = {}) {
+    document.querySelectorAll("[data-copy-key]").forEach((field) => {
+      state.editorContent[field.dataset.copyKey] = field.value;
+    });
+
+    const prepared = prepareContentForSave(state.editorContent);
+    state.editorContent = {
+      ...state.defaultContent,
+      ...prepared
+    };
+    state.content = {
+      ...state.defaultContent,
+      ...prepared
+    };
+
+    applyContent();
+    updateCount(state.shows.length);
+    updateFeedLabels();
+
+    if (!options.silent) setAdminCopyStatus("Copy draft saved");
+  }
+
+  async function reloadAdminContent() {
+    if (!config.contentDataUrl) throw new Error("No site copy file configured");
+    const content = await fetchContentJson(config.contentDataUrl);
+    state.editorContent = {
+      ...state.defaultContent,
+      ...content
+    };
+    state.content = {
+      ...state.defaultContent,
+      ...content
+    };
+    applyContent();
+    updateCount(state.shows.length);
+    updateFeedLabels();
+    renderContentEditor();
+    setAdminCopyStatus("Copy reloaded");
+  }
+
+  async function publishAdminContent() {
+    saveCurrentContentDraft({ silent: true });
+
+    const token = getPublishToken("#copy-github-token", "#copy-remember-token");
+    const repo = config.github || {};
+    if (!token) throw new Error("Add a GitHub save key");
+    if (!repo.contentPath) throw new Error("Copy publishing is not configured");
+
+    setAdminCopyStatus("Publishing copy...");
+
+    const content = `${JSON.stringify({
+      updated_at: new Date().toISOString(),
+      content: prepareContentForSave(state.editorContent)
+    }, null, 2)}\n`;
+
+    await publishJsonFile(repo.contentPath, content, token, "Update site copy from hidden admin page");
+    state.contentSource = "Site admin";
+    applyContent();
+    setAdminCopyStatus("Copy published");
+  }
+
+  function prepareContentForSave(content) {
+    return COPY_FIELDS.reduce((savedContent, field) => {
+      savedContent[field.key] = String(content[field.key] ?? "").trim();
+      return savedContent;
+    }, {});
+  }
+
   function initAdminEditor() {
     const form = document.querySelector("#admin-show-form");
     if (!form) return;
 
-    const tokenInput = document.querySelector("#github-token");
-    const rememberToken = document.querySelector("#remember-token");
-    const savedToken = window.localStorage.getItem("rapidFireGithubToken") || "";
-
-    if (tokenInput && savedToken) {
-      tokenInput.value = savedToken;
-      if (rememberToken) rememberToken.checked = true;
-    }
+    initStoredToken("#github-token", "#remember-token");
 
     if (!state.editorShows.length) {
       state.editorShows.push(createBlankShow());
@@ -611,43 +877,45 @@
   async function publishAdminShows() {
     saveCurrentAdminShow({ silent: true });
 
-    const tokenInput = document.querySelector("#github-token");
-    const rememberToken = document.querySelector("#remember-token");
-    const token = String(tokenInput?.value || "").trim();
     const repo = config.github || {};
+    const token = getPublishToken("#github-token", "#remember-token");
 
     if (!token) throw new Error("Add a GitHub save key");
     if (!repo.owner || !repo.repo || !repo.showsPath) throw new Error("GitHub publishing is not configured");
 
-    if (rememberToken?.checked) {
-      window.localStorage.setItem("rapidFireGithubToken", token);
-    } else {
-      window.localStorage.removeItem("rapidFireGithubToken");
-    }
-
     setAdminStatus("Publishing...");
-
-    const branch = repo.branch || "main";
-    const fileUrl = `https://api.github.com/repos/${repo.owner}/${repo.repo}/contents/${encodePath(repo.showsPath)}?ref=${encodeURIComponent(branch)}`;
-    const currentFile = await fetch(fileUrl, {
-      headers: getGithubHeaders(token)
-    });
-
-    if (!currentFile.ok) {
-      throw new Error(await getGithubError(currentFile, "Could not read show file"));
-    }
-
-    const current = await currentFile.json();
     const content = `${JSON.stringify({
       updated_at: new Date().toISOString(),
       shows: state.editorShows.map(prepareShowForSave)
     }, null, 2)}\n`;
 
-    const update = await fetch(`https://api.github.com/repos/${repo.owner}/${repo.repo}/contents/${encodePath(repo.showsPath)}`, {
+    await publishJsonFile(repo.showsPath, content, token, "Update shows from hidden admin page");
+
+    state.source = "Site admin";
+    syncAdminPreview();
+    setAdminStatus("Published");
+  }
+
+  async function publishJsonFile(repoPath, content, token, message) {
+    const repo = config.github || {};
+    if (!repo.owner || !repo.repo || !repoPath) throw new Error("GitHub publishing is not configured");
+
+    const branch = repo.branch || "main";
+    const fileUrl = `https://api.github.com/repos/${repo.owner}/${repo.repo}/contents/${encodePath(repoPath)}?ref=${encodeURIComponent(branch)}`;
+    const currentFile = await fetch(fileUrl, {
+      headers: getGithubHeaders(token)
+    });
+
+    if (!currentFile.ok) {
+      throw new Error(await getGithubError(currentFile, "Could not read site file"));
+    }
+
+    const current = await currentFile.json();
+    const update = await fetch(`https://api.github.com/repos/${repo.owner}/${repo.repo}/contents/${encodePath(repoPath)}`, {
       method: "PUT",
       headers: getGithubHeaders(token),
       body: JSON.stringify({
-        message: "Update shows from hidden admin page",
+        message,
         content: toBase64Utf8(content),
         sha: current.sha,
         branch
@@ -655,12 +923,8 @@
     });
 
     if (!update.ok) {
-      throw new Error(await getGithubError(update, "Could not publish shows"));
+      throw new Error(await getGithubError(update, "Could not publish site file"));
     }
-
-    state.source = "Site admin";
-    syncAdminPreview();
-    setAdminStatus("Published");
   }
 
   function prepareShowForSave(show) {
@@ -684,6 +948,31 @@
       "Content-Type": "application/json",
       "X-GitHub-Api-Version": "2022-11-28"
     };
+  }
+
+  function initStoredToken(tokenSelector, rememberSelector) {
+    const tokenInput = document.querySelector(tokenSelector);
+    const rememberToken = document.querySelector(rememberSelector);
+    const savedToken = window.localStorage.getItem("rapidFireGithubToken") || "";
+
+    if (tokenInput && savedToken) {
+      tokenInput.value = savedToken;
+      if (rememberToken) rememberToken.checked = true;
+    }
+  }
+
+  function getPublishToken(tokenSelector, rememberSelector) {
+    const tokenInput = document.querySelector(tokenSelector);
+    const rememberToken = document.querySelector(rememberSelector);
+    const token = String(tokenInput?.value || "").trim();
+
+    if (rememberToken?.checked && token) {
+      window.localStorage.setItem("rapidFireGithubToken", token);
+    } else if (rememberToken && !rememberToken.checked) {
+      window.localStorage.removeItem("rapidFireGithubToken");
+    }
+
+    return token;
   }
 
   async function getGithubError(response, fallback) {
@@ -719,6 +1008,11 @@
 
   function setAdminStatus(message) {
     const status = document.querySelector("#admin-edit-status");
+    if (status) status.textContent = message;
+  }
+
+  function setAdminCopyStatus(message) {
+    const status = document.querySelector("#admin-copy-status");
     if (status) status.textContent = message;
   }
 

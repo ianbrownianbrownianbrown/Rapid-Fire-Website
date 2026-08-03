@@ -4,6 +4,7 @@ window.RAPID_FIRE_CONFIG = {
   tagline: "Comedy without borders. In-fighting. Greatest comedy on planet earth.",
   logoUrl: "assets/rapid-fire-logo-neon.png",
   contactEmail: "booking@rapidfireimprov.com",
+  contentDataUrl: "data/content.json",
   showsDataUrl: "data/shows.json",
   contentSheetCsvUrl: "",
   googleSheetCsvUrl: "",
@@ -12,6 +13,7 @@ window.RAPID_FIRE_CONFIG = {
     owner: "ianbrownianbrownianbrown",
     repo: "Rapid-Fire-Website",
     branch: "main",
+    contentPath: "docs/data/content.json",
     showsPath: "docs/data/shows.json"
   },
   content: {},

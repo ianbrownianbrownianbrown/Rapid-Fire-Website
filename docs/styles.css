@@ -334,30 +334,6 @@ h3 {
   display: none;
 }
 
-.ticker {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  border-block: 3px solid var(--ink);
-  background: linear-gradient(90deg, var(--red), var(--pink), var(--cyan), var(--gold));
-}
-
-.ticker span {
-  min-height: 58px;
-  display: grid;
-  place-items: center;
-  border-right: 2px solid rgba(37, 17, 38, 0.3);
-  padding: 12px;
-  color: var(--ink);
-  font-size: 0.88rem;
-  font-weight: 900;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.ticker span:last-child {
-  border-right: 0;
-}
-
 .section {
   padding: 78px clamp(20px, 6%, 86px);
 }
@@ -442,8 +418,7 @@ h3 {
   min-width: 0;
 }
 
-.show-meta,
-.cast-role {
+.show-meta {
   margin-bottom: 8px;
   color: var(--red-dark);
   font-size: 0.82rem;
@@ -453,7 +428,7 @@ h3 {
 
 .venue,
 .description,
-.cast-card p,
+.ensemble-story p,
 .booking p,
 .admin-hero p {
   color: var(--muted);
@@ -481,18 +456,21 @@ h3 {
   border-block: 1px solid var(--line);
 }
 
-.cast-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+.ensemble-story {
+  max-width: 860px;
 }
 
-.cast-card {
-  border: 2px solid rgba(0, 169, 255, 0.36);
-  border-radius: 8px;
-  padding: 22px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 16px 38px var(--shadow);
+.ensemble-story h2 {
+  max-width: 10ch;
+}
+
+.section-subhead {
+  max-width: 760px;
+  margin-bottom: 18px;
+  color: var(--ink-2);
+  font-size: 1.32rem;
+  font-weight: 900;
+  line-height: 1.38;
 }
 
 .booking,
@@ -526,7 +504,8 @@ h3 {
   max-width: 860px;
 }
 
-#admin-edit-status {
+#admin-edit-status,
+#admin-copy-status {
   display: inline-flex;
   min-height: 32px;
   align-items: center;
@@ -658,6 +637,35 @@ h3 {
 .admin-form textarea {
   min-height: 132px;
   resize: vertical;
+}
+
+.copy-fields {
+  display: grid;
+  gap: 24px;
+}
+
+.copy-group {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  border: 0;
+  border-left: 4px solid var(--cyan);
+  margin: 0;
+  padding: 0 0 0 18px;
+}
+
+.copy-group legend {
+  margin-bottom: 2px;
+  color: var(--red-dark);
+  font-size: 0.92rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.copy-field-key {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
 }
 
 .admin-form input:focus,
@@ -828,20 +836,12 @@ h3 {
     object-position: center 38%;
   }
 
-  .ticker {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .show-card {
     grid-template-columns: 1fr;
   }
 
   .date-block {
     width: 112px;
-  }
-
-  .cast-grid {
-    grid-template-columns: 1fr;
   }
 
   .admin-panel-head,
@@ -853,6 +853,10 @@ h3 {
 
   .field-grid {
     grid-template-columns: 1fr;
+  }
+
+  .copy-group {
+    padding-left: 14px;
   }
 
   .publish-panel label:first-child {

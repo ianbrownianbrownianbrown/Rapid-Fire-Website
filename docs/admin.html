@@ -15,7 +15,7 @@
     <script defer src="site.js"></script>
   </head>
   <body class="admin-page">
-    <a class="skip-link" href="#show-editor">Skip to show editor</a>
+    <a class="skip-link" href="#copy-editor">Skip to copy editor</a>
 
     <header class="site-header">
       <a class="brand" href="index.html" aria-label="Rapid Fire Improv home">
@@ -42,12 +42,52 @@
           Add and edit upcoming shows from the hidden team page.
         </p>
         <div class="hero-actions">
+          <a class="button button-primary" href="#copy-editor" data-content="admin.hero.edit_copy_button">
+            Edit Copy
+          </a>
           <a class="button button-primary" href="#show-editor" data-content="admin.hero.edit_shows_button">
             Edit Shows
           </a>
           <a class="button button-secondary" href="index.html#shows" data-content="admin.hero.view_public_button">
             View Public Shows
           </a>
+        </div>
+      </section>
+
+      <section id="copy-editor" class="section admin-editor" aria-labelledby="copy-editor-title">
+        <div class="section-head">
+          <p class="eyebrow" data-content="admin.copy.eyebrow">Site copy</p>
+          <h2 id="copy-editor-title" data-content="admin.copy.title">Copy Control</h2>
+          <p data-content="admin.copy.body">
+            Edit the headings, buttons, descriptions, and hidden-page labels across the site.
+          </p>
+          <p id="admin-copy-status" aria-live="polite">Ready</p>
+        </div>
+
+        <form id="admin-copy-form" class="admin-form copy-form">
+          <div id="admin-copy-fields" class="copy-fields"></div>
+          <div class="admin-actions">
+            <button class="button button-primary" type="submit" data-content="admin.copy.save_draft">
+              Save Copy Draft
+            </button>
+          </div>
+        </form>
+
+        <div class="publish-panel">
+          <label>
+            GitHub save key
+            <input id="copy-github-token" type="password" autocomplete="off">
+          </label>
+          <label class="check-field">
+            <input id="copy-remember-token" type="checkbox">
+            Remember on this device
+          </label>
+          <button id="admin-publish-copy" class="button button-primary" type="button" data-content="admin.copy.publish">
+            Publish Copy
+          </button>
+          <button id="admin-reload-copy" class="button button-secondary" type="button" data-content="admin.copy.reload">
+            Reload Copy
+          </button>
         </div>
       </section>
 

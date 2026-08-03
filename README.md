@@ -2,13 +2,13 @@
 
 Static first version for the Rapid Fire improv team site. The public site lives in `docs/` so GitHub Pages can publish it without a build step.
 
-## Edit Shows From The Hidden Admin Page
+## Edit The Site From The Hidden Admin Page
 
-The public site reads upcoming shows from `docs/data/shows.json`. The hidden admin page at `docs/admin.html` lets teammates add, edit, preview, and publish shows without touching code.
+The public site reads page copy from `docs/data/content.json` and upcoming shows from `docs/data/shows.json`. The hidden admin page at `docs/admin.html` lets teammates edit copy, add shows, preview changes, and publish without touching code.
 
 The admin page is intentionally not linked from the public navigation. Type `/admin.html` after the site URL to open it.
 
-To publish from the admin page, use a GitHub fine-grained personal access token with read/write `Contents` permission for this repository only. Paste that token into the "GitHub save key" field, edit the shows, then click "Publish Shows". The token is not committed to the repository. "Remember on this device" stores it only in that browser.
+To publish from the admin page, use a GitHub fine-grained personal access token with read/write `Contents` permission for this repository only. Paste that token into the "GitHub save key" field, edit copy or shows, then click the matching publish button. The token is not committed to the repository. "Remember on this device" stores it only in that browser.
 
 Show fields:
 
