@@ -216,6 +216,11 @@ a {
   stroke-width: 2;
 }
 
+.social-link[data-social-link="google-reviews"] svg,
+.social-link[data-social-link="google-reviews"] svg path {
+  stroke: none;
+}
+
 .social-link:hover,
 .social-link:focus-visible {
   background: rgba(255, 43, 214, 0.1);
