@@ -90,6 +90,7 @@
         { key: "booking.eyebrow", label: "Small label" },
         { key: "booking.title", label: "Heading" },
         { key: "booking.body", label: "Body copy", multiline: true },
+        { key: "booking.email", label: "Booking email", type: "email" },
         { key: "booking.button_label", label: "Button label" }
       ]
     },
@@ -242,7 +243,8 @@
         "From one-shot DnD campaigns inspired by audience suggestions to interwoven stories about a made-up town, we take a narrative-driven approach to long-form improv that lets audiences watch a whole world snap into place in real time.",
       "booking.eyebrow": "Booking",
       "booking.title": "Bring Rapid Fire to the Room",
-      "booking.body": "Stage shows, private events, fundraisers, workshops, and high-speed comedy collisions.",
+      "booking.body": "DM us on Instagram or reach out to",
+      "booking.email": config.contactEmail || "booking@rapidfireimprov.com",
       "booking.button_label": "Email Booking",
       "admin.meta.title": "Team Edit - Rapid Fire Improv",
       "admin.meta.description": "Rapid Fire Improv team editing hub.",
@@ -314,6 +316,32 @@
     });
 
     applySocialLinks();
+    applyBookingEmail();
+  }
+
+  function applyBookingEmail() {
+    const email = String(getContent("booking.email") || "").replace(/\s+/g, "");
+    const mailto = email ? `mailto:${email}` : "#";
+    const inlineEmail = document.querySelector("#booking-inline-email");
+    const bookingButton = document.querySelector("#booking-email");
+
+    if (inlineEmail) {
+      inlineEmail.textContent = email;
+      inlineEmail.href = mailto;
+      inlineEmail.hidden = !email;
+    }
+
+    if (bookingButton) {
+      bookingButton.href = mailto;
+      bookingButton.classList.toggle("is-disabled", !email);
+      if (email) {
+        bookingButton.removeAttribute("aria-disabled");
+        bookingButton.removeAttribute("tabindex");
+      } else {
+        bookingButton.setAttribute("aria-disabled", "true");
+        bookingButton.setAttribute("tabindex", "-1");
+      }
+    }
   }
 
   function applySocialLinks() {
