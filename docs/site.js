@@ -350,6 +350,7 @@
       const disabled = !href || href === "#";
 
       link.classList.toggle("is-disabled", disabled);
+      link.hidden = disabled;
 
       if (disabled) {
         link.setAttribute("href", "#");
@@ -363,6 +364,11 @@
         link.removeAttribute("aria-disabled");
         link.removeAttribute("tabindex");
       }
+    });
+
+    document.querySelectorAll(".social-links").forEach((container) => {
+      const hasVisibleLink = Boolean(container.querySelector("[data-social-link]:not([hidden])"));
+      container.hidden = !hasVisibleLink;
     });
   }
 
