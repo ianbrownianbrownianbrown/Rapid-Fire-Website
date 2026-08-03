@@ -679,11 +679,14 @@
     const container = document.querySelector("#admin-copy-fields");
     if (!container) return;
 
+    renderCopyMenu();
     container.textContent = "";
 
-    COPY_FIELD_GROUPS.forEach((group) => {
+    COPY_FIELD_GROUPS.forEach((group, index) => {
       const fieldset = document.createElement("fieldset");
       fieldset.className = "copy-group";
+      fieldset.id = getCopyGroupId(group.title, index);
+      fieldset.tabIndex = -1;
 
       const legend = document.createElement("legend");
       legend.textContent = group.title;
@@ -715,6 +718,31 @@
 
       container.append(fieldset);
     });
+  }
+
+  function renderCopyMenu() {
+    const menu = document.querySelector("#admin-copy-menu");
+    if (!menu) return;
+
+    menu.textContent = "";
+
+    COPY_FIELD_GROUPS.forEach((group, index) => {
+      const link = document.createElement("a");
+      link.href = `#${getCopyGroupId(group.title, index)}`;
+      link.textContent = group.title;
+      link.className = "copy-menu-link";
+      menu.append(link);
+    });
+  }
+
+  function getCopyGroupId(title, index) {
+    const slug = String(title || "section")
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    return `copy-group-${index + 1}-${slug || "section"}`;
   }
 
   function saveCurrentContentDraft(options = {}) {
