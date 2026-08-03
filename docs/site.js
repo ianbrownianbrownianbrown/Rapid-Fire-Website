@@ -244,7 +244,7 @@
       "booking.eyebrow": "Booking",
       "booking.title": "Bring Rapid Fire to the Room",
       "booking.body": "DM us on Instagram or reach out to",
-      "booking.email": config.contactEmail || "booking@rapidfireimprov.com",
+      "booking.email": config.contactEmail || "rapidfireimprov@gmail.com",
       "booking.button_label": "Email Booking",
       "admin.meta.title": "Team Edit - Rapid Fire Improv",
       "admin.meta.description": "Rapid Fire Improv team editing hub.",
