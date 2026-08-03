@@ -1,15 +1,15 @@
 {
-  "updated_at": "2026-07-30T00:00:00.000Z",
+  "updated_at": "2026-08-03T15:50:40.182Z",
   "shows": [
     {
-      "date": "2026-08-16",
-      "time": "7:30 PM",
-      "title": "Lorem Ipsum",
-      "venue": "Dolor sit amet",
-      "address": "Consectetur adipiscing",
+      "date": "2026-08-03",
+      "time": "7:00 pm",
+      "title": "Monthly COM",
+      "venue": "The Comedy Project",
+      "address": "540 Leonard ST NW",
       "ticket_url": "#booking",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      "status": "Lorem ipsum",
+      "description": "Doing our monthly COM set where we try new and interesting things!",
+      "status": "",
       "featured": true
     },
     {
