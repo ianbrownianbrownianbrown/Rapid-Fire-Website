@@ -141,6 +141,15 @@ a {
   white-space: nowrap;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-left: auto;
+  min-width: 0;
+}
+
 .site-nav {
   display: flex;
   align-items: center;
@@ -166,6 +175,54 @@ a {
   background: rgba(0, 169, 255, 0.1);
   color: var(--ink);
   outline: none;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.social-link {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 2px solid rgba(255, 43, 214, 0.32);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: 0 0 18px rgba(0, 169, 255, 0.12);
+  transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease, background 140ms ease;
+}
+
+.social-link svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 0;
+}
+
+.social-link[data-social-link="instagram"] svg {
+  fill: none;
+  stroke-width: 2;
+}
+
+.social-link:hover,
+.social-link:focus-visible {
+  border-color: var(--cyan);
+  background: rgba(239, 252, 255, 0.9);
+  color: var(--red-dark);
+  outline: none;
+  transform: translateY(-1px);
+  box-shadow: 0 0 22px rgba(255, 43, 214, 0.22);
+}
+
+.social-link.is-disabled {
+  opacity: 0.42;
+  pointer-events: none;
 }
 
 .hero {
@@ -774,8 +831,31 @@ h3 {
     flex-direction: column;
   }
 
+  .header-actions {
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: 0;
+  }
+
   .site-nav {
+    flex: 1 1 auto;
     justify-content: flex-start;
+  }
+
+  .site-nav a {
+    padding: 7px 8px;
+  }
+
+  .social-links {
+    flex: 0 0 auto;
+  }
+
+  .social-link {
+    width: 36px;
+    height: 36px;
   }
 
   .hero {

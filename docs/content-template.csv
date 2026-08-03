@@ -9,6 +9,12 @@ meta.og_description,"Upcoming shows, booking, and team updates for Rapid Fire Im
 nav.shows,Shows,Top navigation,active,
 nav.team,Team,Top navigation,active,
 nav.booking,Booking,Top navigation,active,
+social.facebook_url,,Top navigation social icon,active,Full Facebook URL.
+social.facebook_label,Facebook,Top navigation social icon,active,
+social.instagram_url,,Top navigation social icon,active,Full Instagram URL.
+social.instagram_label,Instagram,Top navigation social icon,active,
+social.google_reviews_url,,Top navigation social icon,active,Full Google reviews URL.
+social.google_reviews_label,Google reviews,Top navigation social icon,active,
 hero.logo_alt,Rapid Fire Improv neon logo,Hero logo alt text,active,
 hero.eyebrow,Live improv comedy,Hero small label,active,
 hero.tagline,"Comedy without borders. In-fighting. Greatest comedy on planet earth.",Hero tagline,active,

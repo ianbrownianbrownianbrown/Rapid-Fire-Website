@@ -41,6 +41,17 @@
       ]
     },
     {
+      title: "Social Links",
+      fields: [
+        { key: "social.facebook_url", label: "Facebook URL", type: "url" },
+        { key: "social.facebook_label", label: "Facebook label" },
+        { key: "social.instagram_url", label: "Instagram URL", type: "url" },
+        { key: "social.instagram_label", label: "Instagram label" },
+        { key: "social.google_reviews_url", label: "Google reviews URL", type: "url" },
+        { key: "social.google_reviews_label", label: "Google reviews label" }
+      ]
+    },
+    {
       title: "Hero",
       fields: [
         { key: "hero.eyebrow", label: "Small label" },
@@ -203,6 +214,12 @@
       "nav.shows": "Shows",
       "nav.team": "Team",
       "nav.booking": "Booking",
+      "social.facebook_url": config.socials?.facebook || "",
+      "social.facebook_label": "Facebook",
+      "social.instagram_url": config.socials?.instagram || "",
+      "social.instagram_label": "Instagram",
+      "social.google_reviews_url": config.socials?.google_reviews || "",
+      "social.google_reviews_label": "Google reviews",
       "hero.logo_alt": "Rapid Fire Improv neon logo",
       "hero.eyebrow": "Live improv comedy",
       "hero.tagline": config.tagline || "Comedy without borders. In-fighting. Greatest comedy on planet earth.",
@@ -279,9 +296,7 @@
 
     document.querySelectorAll("[data-content]").forEach((element) => {
       const value = getContent(element.dataset.content);
-      if (value !== "") {
-        element.textContent = value;
-      }
+      element.textContent = value;
     });
 
     document.querySelectorAll("[data-content-attr]").forEach((element) => {
@@ -292,10 +307,34 @@
         const attr = pair.slice(0, separator).trim();
         const key = pair.slice(separator + 1).trim();
         const value = getContent(key);
-        if (attr && value !== "") {
+        if (attr) {
           element.setAttribute(attr, value);
         }
       });
+    });
+
+    applySocialLinks();
+  }
+
+  function applySocialLinks() {
+    document.querySelectorAll("[data-social-link]").forEach((link) => {
+      const href = String(link.getAttribute("href") || "").trim();
+      const disabled = !href || href === "#";
+
+      link.classList.toggle("is-disabled", disabled);
+
+      if (disabled) {
+        link.setAttribute("href", "#");
+        link.setAttribute("aria-disabled", "true");
+        link.setAttribute("tabindex", "-1");
+        link.removeAttribute("target");
+        link.removeAttribute("rel");
+      } else {
+        link.setAttribute("target", "_blank");
+        link.setAttribute("rel", "noopener");
+        link.removeAttribute("aria-disabled");
+        link.removeAttribute("tabindex");
+      }
     });
   }
 
@@ -639,7 +678,7 @@
         if (field.multiline) {
           input.rows = 4;
         } else {
-          input.type = "text";
+          input.type = field.type || "text";
         }
 
         label.append(labelText, keyText, input);

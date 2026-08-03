@@ -19,8 +19,8 @@ window.RAPID_FIRE_CONFIG = {
   content: {},
   socials: {
     instagram: "",
-    youtube: "",
-    facebook: ""
+    facebook: "",
+    google_reviews: ""
   },
   cast: [
     {
