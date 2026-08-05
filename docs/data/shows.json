@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-03T15:53:17.754Z",
+  "updated_at": "2026-08-05T14:42:05.346Z",
   "shows": [
     {
       "date": "2026-08-03",
@@ -14,14 +14,14 @@
     },
     {
       "date": "2026-09-06",
-      "time": "8:00 PM",
-      "title": "Dolor Sit Amet",
-      "venue": "Consectetur elit",
-      "address": "Sed do eiusmod",
+      "time": "7:00 PM",
+      "title": "Detroit Improv Festival",
+      "venue": "Go! Comedy Improv Theater",
+      "address": "261 E 9 mile rd, Ferndale, MI 48220",
       "ticket_url": "#booking",
-      "description": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "status": "Dolor sit",
-      "featured": false
+      "description": "We are here!!!",
+      "status": "Let’s get it baby",
+      "featured": true
     },
     {
       "date": "2026-10-18",
