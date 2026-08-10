@@ -501,17 +501,21 @@ h3 {
   line-height: 1.55;
 }
 
-.booking-email-link {
+.booking-contact-link {
   color: var(--cyan-dark);
   font-weight: 900;
   text-decoration: none;
   overflow-wrap: anywhere;
 }
 
-.booking-email-link:hover,
-.booking-email-link:focus-visible {
+.booking-contact-link:hover,
+.booking-contact-link:focus-visible {
   color: var(--red-dark);
   outline: none;
+}
+
+.booking-contact-separator {
+  margin-left: 0.28rem;
 }
 
 .show-link {

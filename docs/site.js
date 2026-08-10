@@ -91,6 +91,8 @@
         { key: "booking.title", label: "Heading" },
         { key: "booking.body", label: "Body copy", multiline: true },
         { key: "booking.email", label: "Booking email", type: "email" },
+        { key: "booking.phone_intro", label: "Phone intro" },
+        { key: "booking.phone", label: "Booking phone", type: "tel" },
         { key: "booking.button_label", label: "Button label" }
       ]
     },
@@ -244,7 +246,9 @@
       "booking.eyebrow": "Booking",
       "booking.title": "Bring Rapid Fire to the Room",
       "booking.body": "DM us on Instagram or reach out to",
-      "booking.email": config.contactEmail || "rapidfireimprov@gmail.com",
+      "booking.email": config.contactEmail || "rapidfireimprovcomedy@gmail.com",
+      "booking.phone_intro": "or call/text",
+      "booking.phone": config.contactPhone || "(616) 297-5687",
       "booking.button_label": "Email Booking",
       "admin.meta.title": "Team Edit - Rapid Fire Improv",
       "admin.meta.description": "Rapid Fire Improv team editing hub.",
@@ -321,14 +325,28 @@
 
   function applyBookingEmail() {
     const email = String(getContent("booking.email") || "").replace(/\s+/g, "");
+    const phone = String(getContent("booking.phone") || "").trim();
     const mailto = email ? `mailto:${email}` : "#";
+    const tel = getTelHref(phone);
     const inlineEmail = document.querySelector("#booking-inline-email");
+    const phoneSeparator = document.querySelector("#booking-phone-separator");
+    const phoneLink = document.querySelector("#booking-phone");
     const bookingButton = document.querySelector("#booking-email");
 
     if (inlineEmail) {
       inlineEmail.textContent = email;
       inlineEmail.href = mailto;
       inlineEmail.hidden = !email;
+    }
+
+    if (phoneSeparator) {
+      phoneSeparator.hidden = !phone;
+    }
+
+    if (phoneLink) {
+      phoneLink.textContent = phone;
+      phoneLink.href = tel;
+      phoneLink.hidden = !phone;
     }
 
     if (bookingButton) {
@@ -342,6 +360,13 @@
         bookingButton.setAttribute("tabindex", "-1");
       }
     }
+  }
+
+  function getTelHref(phone) {
+    const digits = String(phone || "").replace(/\D/g, "");
+    if (!digits) return "#";
+    const normalized = digits.length === 10 ? `1${digits}` : digits;
+    return `tel:+${normalized}`;
   }
 
   function applySocialLinks() {
