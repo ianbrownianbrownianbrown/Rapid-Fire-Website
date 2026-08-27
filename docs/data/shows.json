@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-27T19:47:51.127Z",
+  "updated_at": "2026-08-27T19:53:41.784Z",
   "shows": [
     {
       "date": "2026-08-03",
@@ -39,8 +39,8 @@
       "time": "7:00 PM",
       "title": "Rapid Fire @ Stage at the Corner",
       "venue": "Stage at the Corner, Muskegon",
-      "address": "",
-      "ticket_url": "280 W Muskegon Ave, Muskegon, MI 49440",
+      "address": "280 W Muskegon Ave, Muskegon, MI 49440",
+      "ticket_url": "",
       "description": "Comedy at one of RF's favorite venues, Stage at the Corner!",
       "status": "",
       "featured": false
