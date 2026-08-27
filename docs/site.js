@@ -37,6 +37,7 @@
       fields: [
         { key: "nav.shows", label: "Shows nav label" },
         { key: "nav.team", label: "Team nav label" },
+        { key: "nav.tiktok", label: "TikTok nav label" },
         { key: "nav.booking", label: "Booking nav label" }
       ]
     },
@@ -49,6 +50,16 @@
         { key: "social.instagram_label", label: "Instagram label" },
         { key: "social.google_reviews_url", label: "Google reviews URL", type: "url" },
         { key: "social.google_reviews_label", label: "Google reviews label" }
+      ]
+    },
+    {
+      title: "TikTok Profile",
+      fields: [
+        { key: "tiktok.eyebrow", label: "Small label" },
+        { key: "tiktok.title", label: "Heading" },
+        { key: "tiktok.body", label: "Intro copy", multiline: true },
+        { key: "tiktok.profile_url", label: "TikTok profile URL", type: "url" },
+        { key: "tiktok.profile_label", label: "Profile link label" }
       ]
     },
     {
@@ -130,6 +141,7 @@
   ];
 
   const COPY_FIELDS = COPY_FIELD_GROUPS.flatMap((group) => group.fields);
+  let activeTikTokProfileKey = "";
 
   document.addEventListener("DOMContentLoaded", init);
 
@@ -216,6 +228,7 @@
       "meta.og_description": "Upcoming shows, booking, and team updates for Rapid Fire Improv.",
       "nav.shows": "Shows",
       "nav.team": "Team",
+      "nav.tiktok": "TikTok",
       "nav.booking": "Booking",
       "social.facebook_url": config.socials?.facebook || "",
       "social.facebook_label": "Facebook",
@@ -223,6 +236,11 @@
       "social.instagram_label": "Instagram",
       "social.google_reviews_url": config.socials?.google_reviews || "",
       "social.google_reviews_label": "Google reviews",
+      "tiktok.eyebrow": "TikTok",
+      "tiktok.title": "Watch Rapid Fire",
+      "tiktok.body": "Follow along for clips, show moments, and whatever survives the edit.",
+      "tiktok.profile_url": config.tiktokProfileUrl || config.socials?.tiktok || "",
+      "tiktok.profile_label": config.tiktokProfileLabel || "",
       "hero.logo_alt": "Rapid Fire Improv neon logo",
       "hero.eyebrow": "Live improv comedy",
       "hero.tagline": config.tagline || "Comedy without borders. In-fighting. Greatest comedy on planet earth.",
@@ -321,6 +339,7 @@
 
     applySocialLinks();
     applyBookingEmail();
+    applyTikTokProfileEmbed();
   }
 
   function applyBookingEmail() {
@@ -395,6 +414,100 @@
       const hasVisibleLink = Boolean(container.querySelector("[data-social-link]:not([hidden])"));
       container.hidden = !hasVisibleLink;
     });
+  }
+
+  function applyTikTokProfileEmbed() {
+    const section = document.querySelector("#tiktok");
+    const mount = document.querySelector("#tiktok-profile-embed");
+    const navLink = document.querySelector("[data-nav-tiktok]");
+    const profile = getTikTokProfile(getContent("tiktok.profile_url"), getContent("tiktok.profile_label"));
+
+    if (navLink) {
+      navLink.hidden = !profile;
+    }
+
+    if (!section || !mount) return;
+
+    section.hidden = !profile;
+    if (!profile) {
+      mount.textContent = "";
+      activeTikTokProfileKey = "";
+      return;
+    }
+
+    const profileKey = `${profile.username}|${profile.url}`;
+    if (activeTikTokProfileKey === profileKey && mount.querySelector(".tiktok-embed")) return;
+    activeTikTokProfileKey = profileKey;
+
+    mount.textContent = "";
+
+    const blockquote = document.createElement("blockquote");
+    blockquote.className = "tiktok-embed";
+    blockquote.setAttribute("cite", profile.url);
+    blockquote.dataset.uniqueId = profile.username;
+    blockquote.dataset.embedType = "creator";
+    blockquote.dataset.embedFrom = "rapid-fire-site";
+    blockquote.style.maxWidth = "720px";
+    blockquote.style.minWidth = "288px";
+
+    const content = document.createElement("section");
+    const link = document.createElement("a");
+    link.href = `${profile.url}?refer=creator_embed`;
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.textContent = profile.label;
+
+    content.append(link);
+    blockquote.append(content);
+    mount.append(blockquote);
+    refreshTikTokEmbedScript();
+  }
+
+  function getTikTokProfile(rawUrl, rawLabel) {
+    const usernameFromUrl = parseTikTokUsername(rawUrl);
+    const label = String(rawLabel || "").trim();
+    const usernameFromLabel =
+      !usernameFromUrl && (/^@/.test(label) || /tiktok\.com/i.test(label)) ? parseTikTokUsername(label) : "";
+    const username = usernameFromUrl || usernameFromLabel;
+    if (!username) return null;
+
+    return {
+      username,
+      url: `https://www.tiktok.com/@${username}`,
+      label: label && !/tiktok\.com/i.test(label) ? label : `@${username}`
+    };
+  }
+
+  function parseTikTokUsername(value) {
+    const raw = String(value || "").trim();
+    if (!raw) return "";
+
+    let candidate = raw;
+    if (/tiktok\.com/i.test(candidate)) {
+      try {
+        const normalized = /^https?:\/\//i.test(candidate) ? candidate : `https://${candidate}`;
+        const url = new URL(normalized);
+        const match = url.pathname.match(/\/@([^/?#]+)/i);
+        candidate = match ? match[1] : "";
+      } catch (error) {
+        const match = candidate.match(/tiktok\.com\/@([^/?#]+)/i);
+        candidate = match ? match[1] : "";
+      }
+    } else {
+      candidate = candidate.replace(/^@/, "");
+    }
+
+    return candidate.replace(/^@/, "").replace(/[^A-Za-z0-9._]/g, "").slice(0, 80);
+  }
+
+  function refreshTikTokEmbedScript() {
+    document.querySelectorAll("script[data-tiktok-embed-script]").forEach((script) => script.remove());
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://www.tiktok.com/embed.js";
+    script.dataset.tiktokEmbedScript = "true";
+    document.body.append(script);
   }
 
   async function loadContent() {

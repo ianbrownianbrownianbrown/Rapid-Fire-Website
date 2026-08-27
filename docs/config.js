@@ -10,6 +10,8 @@ window.RAPID_FIRE_CONFIG = {
   contentSheetCsvUrl: "",
   googleSheetCsvUrl: "",
   castSheetCsvUrl: "",
+  tiktokProfileUrl: "",
+  tiktokProfileLabel: "",
   github: {
     owner: "ianbrownianbrownianbrown",
     repo: "Rapid-Fire-Website",

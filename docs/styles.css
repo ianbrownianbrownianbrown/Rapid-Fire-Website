@@ -539,6 +539,44 @@ h3 {
   border-block: 1px solid var(--line);
 }
 
+.section-tiktok {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(239, 252, 255, 0.78)),
+    rgba(255, 255, 255, 0.72);
+  border-bottom: 1px solid var(--line);
+}
+
+.tiktok-profile-embed {
+  display: grid;
+  justify-items: center;
+  min-height: 220px;
+}
+
+.tiktok-profile-embed .tiktok-embed {
+  width: min(100%, 720px);
+  margin: 0;
+}
+
+.tiktok-profile-embed .tiktok-embed section {
+  border: 2px solid rgba(0, 169, 255, 0.28);
+  border-radius: 8px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.8);
+  text-align: center;
+}
+
+.tiktok-profile-embed a {
+  color: var(--cyan-dark);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.tiktok-profile-embed a:hover,
+.tiktok-profile-embed a:focus-visible {
+  color: var(--red-dark);
+  outline: none;
+}
+
 .ensemble-story {
   max-width: 860px;
 }

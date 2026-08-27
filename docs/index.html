@@ -37,6 +37,7 @@
         <nav class="site-nav" aria-label="Main navigation">
           <a href="#shows" data-content="nav.shows">Shows</a>
           <a href="#team" data-content="nav.team">Team</a>
+          <a href="#tiktok" data-nav-tiktok data-content="nav.tiktok" hidden>TikTok</a>
           <a href="#booking" data-content="nav.booking">Booking</a>
         </nav>
         <div class="social-links" aria-label="Social links">
@@ -153,6 +154,15 @@
             lets audiences watch a whole world snap into place in real time.
           </p>
         </div>
+      </section>
+
+      <section id="tiktok" class="section section-tiktok" aria-labelledby="tiktok-title" hidden>
+        <div class="section-head">
+          <p class="eyebrow" data-content="tiktok.eyebrow">TikTok</p>
+          <h2 id="tiktok-title" data-content="tiktok.title">Watch Rapid Fire</h2>
+          <p data-content="tiktok.body">Follow along for clips, show moments, and whatever survives the edit.</p>
+        </div>
+        <div id="tiktok-profile-embed" class="tiktok-profile-embed" aria-live="polite"></div>
       </section>
 
       <section id="booking" class="booking" aria-labelledby="booking-title">
