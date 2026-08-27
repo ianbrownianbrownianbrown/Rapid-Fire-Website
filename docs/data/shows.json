@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-05T14:44:17.048Z",
+  "updated_at": "2026-08-27T19:47:51.127Z",
   "shows": [
     {
       "date": "2026-08-03",
@@ -24,14 +24,25 @@
       "featured": true
     },
     {
-      "date": "2026-10-18",
+      "date": "2026-09-04",
+      "time": "7:30 PM",
+      "title": "Live at Dormhouse Theater with Unreasonable Adults",
+      "venue": "Dormhouse Theater, Kalamazoo",
+      "address": "1030 Portage Street, Kalamazoo, MI 49001",
+      "ticket_url": "https://www.dormousetheatre.com/events/unreasonable-adults-improv-wsg-rapid-fire",
+      "description": "IMPROV COMEDY NEEDISAYMORE",
+      "status": "",
+      "featured": false
+    },
+    {
+      "date": "2026-09-18",
       "time": "7:00 PM",
-      "title": "Consectetur Elit",
-      "venue": "Adipiscing elit",
-      "address": "Ut enim ad minim",
-      "ticket_url": "#booking",
-      "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-      "status": "Amet",
+      "title": "Rapid Fire @ Stage at the Corner",
+      "venue": "Stage at the Corner, Muskegon",
+      "address": "",
+      "ticket_url": "280 W Muskegon Ave, Muskegon, MI 49440",
+      "description": "Comedy at one of RF's favorite venues, Stage at the Corner!",
+      "status": "",
       "featured": false
     }
   ]
