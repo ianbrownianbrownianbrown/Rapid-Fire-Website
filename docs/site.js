@@ -711,7 +711,7 @@
 
     const meta = document.createElement("p");
     meta.className = "show-meta";
-    meta.textContent = [show.time, show.status].filter(Boolean).join(" / ");
+    meta.textContent = show.time;
 
     const title = document.createElement("h3");
     title.textContent = show.title;
@@ -734,7 +734,10 @@
       action.rel = "noopener";
     }
 
-    body.append(meta, title, venue, description, action);
+    if (show.time) {
+      body.append(meta);
+    }
+    body.append(title, venue, description, action);
     card.append(dateBlock, body);
 
     return card;
