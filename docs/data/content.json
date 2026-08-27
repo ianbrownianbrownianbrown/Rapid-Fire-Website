@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-27T19:48:59.442Z",
+  "updated_at": "2026-08-27T19:50:44.712Z",
   "content": {
     "site.name": "Rapid Fire Improv",
     "site.footer_text": "Rapid Fire Improv",
@@ -21,7 +21,7 @@
     "social.google_reviews_label": "Google reviews",
     "tiktok.eyebrow": "TikTok",
     "tiktok.title": "Watch Rapid Fire",
-    "tiktok.body": "Follow along for side quests, clips, show moments, and whatever survives the edit.",
+    "tiktok.body": "Follow along for clips, show moments, and whatever survives the edit.",
     "tiktok.profile_url": "https://www.tiktok.com/@rapid.fire35",
     "tiktok.profile_label": "@rapid.fire35",
     "hero.eyebrow": "Live improv comedy",
@@ -35,9 +35,9 @@
     "shows.title": "Upcoming Performances",
     "shows.body": "Come see us live in the flesh",
     "shows.loading": "Lorem ipsum",
-    "shows.empty": "Lorem ipsum dolor sit amet.",
-    "shows.ticket_label": "Lorem ipsum",
-    "shows.details_label": "Dolor sit",
+    "shows.empty": "",
+    "shows.ticket_label": "TICKETS",
+    "shows.details_label": "DEETS",
     "team.eyebrow": "What we do",
     "team.title": "Stories Built in the Room",
     "team.subhead": "Narrative long-form improv that turns audience sparks into strange little worlds.",
