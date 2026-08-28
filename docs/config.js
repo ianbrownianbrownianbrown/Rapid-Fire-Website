@@ -10,8 +10,8 @@ window.RAPID_FIRE_CONFIG = {
   contentSheetCsvUrl: "",
   googleSheetCsvUrl: "",
   castSheetCsvUrl: "",
-  tiktokProfileUrl: "",
-  tiktokProfileLabel: "",
+  instagramProfileUrl: "https://www.instagram.com/rapidfireimprov/",
+  instagramProfileLabel: "@rapidfireimprov",
   github: {
     owner: "ianbrownianbrownianbrown",
     repo: "Rapid-Fire-Website",
@@ -21,7 +21,8 @@ window.RAPID_FIRE_CONFIG = {
   },
   content: {},
   socials: {
-    instagram: "",
+    instagram: "https://www.instagram.com/rapidfireimprov/",
+    tiktok: "",
     facebook: "",
     google_reviews: ""
   },

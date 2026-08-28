@@ -37,7 +37,6 @@
         <nav class="site-nav" aria-label="Main navigation">
           <a href="#shows" data-content="nav.shows">Shows</a>
           <a href="#team" data-content="nav.team">Team</a>
-          <a href="#tiktok" data-nav-tiktok data-content="nav.tiktok" hidden>TikTok</a>
           <a href="#booking" data-content="nav.booking">Booking</a>
         </nav>
         <div class="social-links" aria-label="Social links">
@@ -69,6 +68,20 @@
               <rect x="4.2" y="4.2" width="15.6" height="15.6" rx="4.2"/>
               <circle cx="12" cy="12" r="3.7"/>
               <circle cx="16.9" cy="7.1" r="1"/>
+            </svg>
+          </a>
+          <a
+            class="social-link"
+            data-social-link="tiktok"
+            href="#"
+            target="_blank"
+            rel="noopener"
+            aria-label="TikTok"
+            title="TikTok"
+            data-content-attr="href:social.tiktok_url;aria-label:social.tiktok_label;title:social.tiktok_label"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M16.8 3.1c.5 2.7 2.1 4.5 4.7 4.7v3.1c-1.7.1-3.2-.4-4.6-1.3v5.8c0 3.6-2.3 5.7-5.5 5.7-3.1 0-5.4-2.2-5.4-5.1 0-3.1 2.4-5.3 5.8-5.3.4 0 .7 0 1 .1v3.3c-.3-.1-.7-.2-1.1-.2-1.3 0-2.2.8-2.2 2 0 1.1.8 1.9 2 1.9 1.3 0 2.1-.8 2.1-2.4V3.1h3.2Z"/>
             </svg>
           </a>
           <a
@@ -141,13 +154,13 @@
         </div>
       </section>
 
-      <section id="tiktok" class="section section-tiktok" aria-labelledby="tiktok-title" hidden>
+      <section id="instagram" class="section section-instagram" aria-labelledby="instagram-title" hidden>
         <div class="section-head">
-          <p class="eyebrow" data-content="tiktok.eyebrow">TikTok</p>
-          <h2 id="tiktok-title" data-content="tiktok.title">Watch Rapid Fire</h2>
-          <p data-content="tiktok.body">Follow along for clips, show moments, and whatever survives the edit.</p>
+          <p class="eyebrow" data-content="instagram.eyebrow">Instagram</p>
+          <h2 id="instagram-title" data-content="instagram.title">Follow Rapid Fire</h2>
+          <p data-content="instagram.body">See clips, show moments, and whatever survives the edit.</p>
         </div>
-        <div id="tiktok-profile-embed" class="tiktok-profile-embed" aria-live="polite"></div>
+        <div id="instagram-profile-embed" class="instagram-profile-embed" aria-live="polite"></div>
       </section>
 
       <section id="team" class="section section-team" aria-labelledby="team-title">

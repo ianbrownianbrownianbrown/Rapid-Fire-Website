@@ -8,19 +8,20 @@ meta.og_title,Rapid Fire Improv,Social share title,active,
 meta.og_description,"Upcoming shows, booking, and team updates for Rapid Fire Improv.",Social share description,active,
 nav.shows,Shows,Top navigation,active,
 nav.team,Team,Top navigation,active,
-nav.tiktok,TikTok,Top navigation,active,Only appears when a TikTok profile URL or handle is set.
 nav.booking,Booking,Top navigation,active,
 social.facebook_url,,Top navigation social icon,active,Full Facebook URL.
 social.facebook_label,Facebook,Top navigation social icon,active,
 social.instagram_url,,Top navigation social icon,active,Full Instagram URL.
 social.instagram_label,Instagram,Top navigation social icon,active,
+social.tiktok_url,,Top navigation social icon,active,Full TikTok URL.
+social.tiktok_label,TikTok,Top navigation social icon,active,
 social.google_reviews_url,,Top navigation social icon,active,Full Google reviews URL.
 social.google_reviews_label,Google reviews,Top navigation social icon,active,
-tiktok.eyebrow,TikTok,TikTok profile section small label,active,The whole section stays hidden until a profile URL or handle is set.
-tiktok.title,Watch Rapid Fire,TikTok profile section heading,active,
-tiktok.body,"Follow along for clips, show moments, and whatever survives the edit.",TikTok profile section body,active,
-tiktok.profile_url,,TikTok creator profile embed,active,Use the full URL like https://www.tiktok.com/@yourhandle.
-tiktok.profile_label,,TikTok creator profile link label,active,Optional. Use @yourhandle or a friendly label.
+instagram.eyebrow,Instagram,Instagram profile section small label,active,The whole section stays hidden until a profile URL or handle is set.
+instagram.title,Follow Rapid Fire,Instagram profile section heading,active,
+instagram.body,"See clips, show moments, and whatever survives the edit.",Instagram profile section body,active,
+instagram.profile_url,https://www.instagram.com/rapidfireimprov/,Instagram profile embed,active,Use the full URL like https://www.instagram.com/yourhandle/.
+instagram.profile_label,@rapidfireimprov,Instagram profile link label,active,Optional. Use @yourhandle or a friendly label.
 hero.logo_alt,Rapid Fire Improv neon logo,Hero logo alt text,active,
 hero.eyebrow,Live improv comedy,Hero small label,active,
 hero.tagline,"Comedy without borders. In-fighting. Greatest comedy on planet earth.",Hero tagline,active,
