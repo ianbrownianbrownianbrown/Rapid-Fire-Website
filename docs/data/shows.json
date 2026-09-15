@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-27T19:57:07.273Z",
+  "updated_at": "2026-09-15T15:25:37.286Z",
   "shows": [
     {
       "date": "2026-08-03",
@@ -43,6 +43,17 @@
       "ticket_url": "https://www.facebook.com/thestagemkg/",
       "description": "Comedy at one of RF's favorite venues, Stage at the Corner!",
       "status": "",
+      "featured": false
+    },
+    {
+      "date": "2026-09-24",
+      "time": "7:00 PM",
+      "title": "RF Presents: Roll Play, Play, Roll",
+      "venue": "The Comedy Project",
+      "address": "540 Leonard Street Northwest, Suite B, MI",
+      "ticket_url": "https://www.crowdwork.com/e/live-tcp-role-play-play-roll-20d1c2e6-8f91-4af1-9507-bd64b8175daa?date=2026-09-24T19:00:00",
+      "description": "Every show of Role Play, Play, Roll is a one-night-only fantasy adventure—four comedians, one game master, and an audience whose choices shape the quest. Think Critical Role, but shorter, funnier, and totally unpredictable.\n\nWith audience-powered dice rolls and decisions that change the story, it’s Dimension 20 meets Whose Line right in your hometown. \n\nHeroes, villains, monsters, mayhem—Role Play, Play, Roll brings you improvised epic quests where the laughs are as big as the dragons.",
+      "status": "Tickets available",
       "featured": false
     }
   ]
