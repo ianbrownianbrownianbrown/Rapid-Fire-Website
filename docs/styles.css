@@ -176,7 +176,7 @@ a {
   border-color: var(--ink);
   background: var(--ink);
   box-shadow: 0 3px 0 var(--pink), 0 0 16px rgba(255, 46, 150, 0.28);
-  color: var(--white);
+  color: #fff8ec;
   font-size: 1rem;
 }
 
@@ -194,7 +194,7 @@ a {
   border-color: var(--pink);
   background: var(--ink);
   box-shadow: 0 4px 0 var(--pink), 0 0 22px rgba(255, 46, 150, 0.48);
-  color: var(--white);
+  color: #fff8ec;
 }
 
 .social-links {
