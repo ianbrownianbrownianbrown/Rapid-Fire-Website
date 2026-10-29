@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Role Play, Play, Role Schedule Editor</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="config.js"></script>
+    <script defer src="role-play.js"></script>
+  </head>
+  <body class="role-play-admin-page">
+    <a class="skip-link" href="#role-play-show-editor">Skip to schedule editor</a>
+
+    <header class="site-header role-play-header">
+      <a class="brand" href="role-play.html" aria-label="Role Play, Play, Role home">
+        <img data-logo src="assets/rapid-fire-logo-neon.png" alt="Rapid Fire Improv neon logo">
+        <span>Role Play, Play, Role</span>
+      </a>
+      <nav class="site-nav" aria-label="Role Play, Play, Role admin navigation">
+        <a href="role-play.html">View public page</a>
+        <a href="admin.html">Main admin</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="role-play-admin-hero" aria-labelledby="role-play-admin-title">
+        <p class="role-play-kicker">Quest master console</p>
+        <h1 id="role-play-admin-title">Role Play, Play, Role Schedule</h1>
+        <p>Add and publish only the dates for this production. Rapid Fire's main show calendar stays separate.</p>
+      </section>
+
+      <section id="role-play-show-editor" class="section role-play-admin-editor" aria-labelledby="role-play-show-editor-title">
+        <div class="section-head">
+          <p class="role-play-kicker">Upcoming quests</p>
+          <h2 id="role-play-show-editor-title">Schedule control</h2>
+          <p id="role-play-admin-status" aria-live="polite">Ready</p>
+        </div>
+
+        <div class="admin-workspace">
+          <aside class="admin-panel role-play-admin-panel" aria-labelledby="role-play-show-list-title">
+            <div class="admin-panel-head">
+              <h3 id="role-play-show-list-title">Quest list</h3>
+              <button id="role-play-new-show" class="button button-role-play" type="button">New quest</button>
+            </div>
+            <div id="role-play-show-list" class="admin-show-list"></div>
+          </aside>
+
+          <form id="role-play-show-form" class="admin-form role-play-admin-form">
+            <input id="role-play-show-index" type="hidden" value="">
+            <div class="field-grid">
+              <label>Date<input id="role-play-show-date" type="date"></label>
+              <label>Time<input id="role-play-show-time" type="text" placeholder="7:30 PM"></label>
+              <label>Quest title<input id="role-play-show-title" type="text" placeholder="The Goblet of Something"></label>
+              <label>Venue<input id="role-play-show-venue" type="text"></label>
+              <label>Address<input id="role-play-show-address" type="text"></label>
+              <label>Ticket URL<input id="role-play-show-ticket-url" type="url" placeholder="https://"></label>
+            </div>
+            <label>Description<textarea id="role-play-show-description" rows="5"></textarea></label>
+            <label class="check-field"><input id="role-play-show-featured" type="checkbox">Featured quest</label>
+            <div class="admin-actions">
+              <button class="button button-role-play" type="submit">Save draft</button>
+              <button id="role-play-delete-show" class="button button-secondary" type="button">Delete quest</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="publish-panel role-play-publish-panel">
+          <label>GitHub save key<input id="role-play-github-token" type="password" autocomplete="off"></label>
+          <label class="check-field"><input id="role-play-remember-token" type="checkbox">Remember on this device</label>
+          <button id="role-play-publish-shows" class="button button-role-play" type="button">Publish schedule</button>
+          <button id="role-play-reload-shows" class="button button-secondary" type="button">Reload</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

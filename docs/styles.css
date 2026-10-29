@@ -361,6 +361,26 @@ h3 {
   box-shadow: 0 0 18px rgba(0, 169, 255, 0.18);
 }
 
+.button-role-play {
+  border: 2px solid #d6b563;
+  background: #173b31;
+  color: #fff6d8;
+  box-shadow: 0 6px 0 #0b211a, 0 0 22px rgba(22, 61, 48, 0.3);
+}
+
+.button-role-play:hover,
+.button-role-play:focus-visible {
+  border-color: #fff0b0;
+  box-shadow: 0 8px 0 #0b211a, 0 0 30px rgba(214, 181, 99, 0.4);
+}
+
+.button-role-play-light {
+  border: 2px solid #f6df9b;
+  background: #f3e5bf;
+  color: #1a2922;
+  box-shadow: 0 6px 0 #bf9840;
+}
+
 .button.is-disabled {
   pointer-events: none;
   opacity: 0.48;
@@ -902,6 +922,241 @@ h3 {
   color: var(--red-dark);
   font-weight: 900;
   text-decoration: none;
+}
+
+/* Role Play, Play, Role has its own tabletop palette while sharing the site's structure. */
+.role-play-page,
+.role-play-admin-page {
+  --role-ink: #18271f;
+  --role-ink-soft: #335144;
+  --role-parchment: #f3e5bf;
+  --role-gold: #d6b563;
+  --role-red: #8d3028;
+  background: #ece0bc;
+  color: var(--role-ink);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.role-play-page::after,
+.role-play-admin-page::after {
+  background:
+    linear-gradient(rgba(24, 39, 31, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 39, 31, 0.045) 1px, transparent 1px),
+    rgba(243, 229, 191, 0.24);
+  background-size: 34px 34px;
+}
+
+.role-play-header {
+  border-bottom-color: var(--role-gold);
+  background: rgba(24, 39, 31, 0.94);
+  box-shadow: 0 10px 32px rgba(12, 29, 22, 0.3);
+}
+
+.role-play-header .brand,
+.role-play-header .site-nav a { color: #fff4ce; }
+
+.role-play-header .site-nav a:hover,
+.role-play-header .site-nav a:focus-visible,
+.role-play-header .site-nav a[aria-current="page"] {
+  border-color: var(--role-gold);
+  background: rgba(246, 223, 155, 0.12);
+  color: #fffdf2;
+}
+
+.role-play-header .brand img { filter: drop-shadow(0 0 8px rgba(214, 181, 99, 0.66)); }
+
+.role-play-hero {
+  min-height: min(780px, calc(100svh - 72px));
+  display: grid;
+  align-items: end;
+  padding: clamp(40px, 7vw, 92px) clamp(20px, 6%, 86px);
+  background:
+    linear-gradient(90deg, rgba(8, 20, 14, 0.86) 0%, rgba(8, 20, 14, 0.55) 52%, rgba(8, 20, 14, 0.14) 100%),
+    url("assets/role-play-play-role-hero.png") center / cover no-repeat;
+}
+
+.role-play-hero-inner { max-width: 700px; padding: clamp(24px, 5vw, 58px) 0; }
+
+.role-play-kicker {
+  margin: 0 0 12px;
+  color: var(--role-gold);
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.role-play-hero h1,
+.role-play-admin-hero h1 {
+  max-width: 8ch;
+  margin: 0 0 20px;
+  color: #fff8e3;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(4rem, 10vw, 7.8rem);
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: 0;
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.34);
+  text-transform: none;
+}
+
+.role-play-tagline {
+  max-width: 36rem;
+  margin: 0 0 28px;
+  color: #f5e7bb;
+  font-size: clamp(1.1rem, 2.1vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.role-play-description,
+.role-play-booking {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(28px, 7vw, 104px);
+  padding: clamp(64px, 9vw, 116px) clamp(20px, 10%, 140px);
+}
+
+.role-play-description {
+  border-block: 8px solid var(--role-ink);
+  background: var(--role-parchment);
+}
+
+.role-play-description h2,
+.role-play-schedule h2,
+.role-play-booking h2,
+.role-play-admin-editor h2 {
+  margin: 0;
+  color: var(--role-ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.3rem, 4.4vw, 4rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: 0;
+  text-transform: none;
+  text-shadow: none;
+}
+
+.role-play-copy {
+  max-width: 650px;
+  color: var(--role-ink-soft);
+  font-size: 1.22rem;
+  line-height: 1.66;
+}
+
+.role-play-copy p:last-child { margin-bottom: 0; }
+
+.role-play-schedule {
+  padding: clamp(64px, 9vw, 116px) clamp(20px, 6%, 86px);
+  background: #183c31;
+}
+
+.role-play-schedule .section-head { max-width: 690px; }
+.role-play-schedule .role-play-kicker { color: #e4c974; }
+.role-play-schedule h2 { color: #fff4cf; }
+.role-play-schedule .section-head p:not(.role-play-kicker) { color: #d7e0c3; }
+
+.role-play-shows-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.role-play-show-card,
+.role-play-empty {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 18px;
+  border: 2px solid rgba(235, 210, 133, 0.8);
+  border-radius: 8px;
+  padding: 18px;
+  background: #f7eed2;
+  box-shadow: 6px 6px 0 rgba(8, 23, 16, 0.34);
+}
+
+.role-play-show-card.featured {
+  border-color: #fff2b0;
+  background: #fff7dd;
+  box-shadow: 7px 7px 0 rgba(141, 48, 40, 0.42);
+}
+
+.role-play-date {
+  height: 92px;
+  display: grid;
+  place-content: center;
+  border: 2px solid var(--role-red);
+  border-radius: 50%;
+  background: var(--role-red);
+  color: #fff6dc;
+  text-align: center;
+}
+
+.role-play-date span,
+.role-play-show-time {
+  color: var(--role-red);
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.role-play-date span { color: #f8d77f; }
+.role-play-date strong { font-size: 1.4rem; }
+.role-play-show-time { margin-bottom: 8px; }
+.role-play-show-card h3 { color: var(--role-ink); font-size: 1.4rem; }
+.role-play-show-venue,
+.role-play-show-description { color: var(--role-ink-soft); line-height: 1.48; }
+.role-play-show-link { color: var(--role-red); font-family: "Trebuchet MS", Arial, sans-serif; font-weight: 900; text-decoration: none; }
+.role-play-show-link:hover,
+.role-play-show-link:focus-visible { color: var(--role-ink); outline: none; }
+
+.role-play-empty { grid-column: 1 / -1; display: block; color: var(--role-ink); }
+
+.role-play-booking { align-items: center; background: #8d3028; color: #fff4d4; }
+.role-play-booking h2 { color: #fff7dc; }
+.role-play-booking .role-play-kicker { color: #f2d47f; }
+.role-play-booking p { max-width: 610px; margin: 16px 0 0; color: #ffeac0; font-size: 1.1rem; line-height: 1.6; }
+.role-play-contact-link { color: #fffdf4; font-weight: 900; overflow-wrap: anywhere; }
+.role-play-booking #role-play-phone-intro { margin-left: 0.28rem; }
+
+.role-play-footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px clamp(20px, 6%, 86px);
+  background: #18271f;
+  color: #dce3ca;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-size: 0.9rem;
+}
+
+.role-play-footer a { color: #f4d97f; font-weight: 900; text-decoration: none; }
+
+.role-play-admin-hero { padding: 92px clamp(20px, 6%, 86px) 72px; background: #183c31; }
+.role-play-admin-hero h1 { font-size: clamp(3.2rem, 7vw, 5.8rem); }
+.role-play-admin-hero > p:not(.role-play-kicker) { max-width: 650px; color: #d7e0c3; font-size: 1.15rem; line-height: 1.6; }
+.role-play-admin-editor { background: #f3e5bf; }
+.role-play-admin-panel { border-color: rgba(141, 48, 40, 0.46); }
+.role-play-admin-form { border-color: rgba(24, 60, 49, 0.46); }
+.role-play-publish-panel { border-color: rgba(141, 48, 40, 0.46); }
+
+@media (max-width: 980px) {
+  .role-play-description,
+  .role-play-booking { grid-template-columns: 1fr; }
+  .role-play-shows-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 680px) {
+  .role-play-header { position: relative; }
+  .role-play-hero { min-height: 600px; background-position: 62% center; }
+  .role-play-description,
+  .role-play-booking { padding: 58px 20px; }
+  .role-play-show-card { grid-template-columns: 74px minmax(0, 1fr); gap: 14px; }
+  .role-play-date { width: 74px; height: 74px; }
+  .role-play-footer { align-items: flex-start; flex-direction: column; }
 }
 
 @media (max-width: 980px) {

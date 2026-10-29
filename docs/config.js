@@ -19,6 +19,10 @@ window.RAPID_FIRE_CONFIG = {
     contentPath: "docs/data/content.json",
     showsPath: "docs/data/shows.json"
   },
+  rolePlay: {
+    showsDataUrl: "data/role-play-shows.json",
+    showsPath: "docs/data/role-play-shows.json"
+  },
   content: {},
   socials: {
     instagram: "https://www.instagram.com/rapidfireimprov/",
