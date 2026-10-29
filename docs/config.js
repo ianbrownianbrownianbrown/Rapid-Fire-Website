@@ -2,7 +2,7 @@
 window.RAPID_FIRE_CONFIG = {
   teamName: "Rapid Fire Improv",
   tagline: "Comedy without borders. In-fighting. Greatest comedy on planet earth.",
-  logoUrl: "assets/rapid-fire-logo-neon.png",
+  logoUrl: "/assets/rapid-fire-logo-neon.png",
   contactEmail: "rapidfireimprovcomedy@gmail.com",
   contactPhone: "(616) 297-5687",
   contentDataUrl: "data/content.json",
