@@ -20,7 +20,7 @@ window.RAPID_FIRE_CONFIG = {
     showsPath: "docs/data/shows.json"
   },
   rolePlay: {
-    showsDataUrl: "data/role-play-shows.json",
+    showsDataUrl: "/data/role-play-shows.json",
     showsPath: "docs/data/role-play-shows.json"
   },
   content: {},

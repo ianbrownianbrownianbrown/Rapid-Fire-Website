@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Role Play, Play, Role | Rapid Fire Improv</title>
+    <meta name="description" content="Role Play, Play, Role is a one-shot fantasy comedy campaign, improvised live from your suggestions.">
+    <meta property="og:title" content="Role Play, Play, Role">
+    <meta property="og:description" content="A one-shot fantasy comedy campaign, improvised live from your suggestions.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="../styles.css">
+    <script defer src="../config.js"></script>
+    <script defer src="../role-play.js"></script>
+  </head>
+  <body class="role-play-page">
+    <a class="skip-link" href="#adventure">Skip to Role Play, Play, Role</a>
+
+    <header class="site-header role-play-header">
+      <a class="brand" href="../" aria-label="Rapid Fire Improv home">
+        <img data-logo src="../assets/rapid-fire-logo-neon.png" alt="Rapid Fire Improv neon logo">
+        <span>Rapid Fire Improv</span>
+      </a>
+      <nav class="site-nav" aria-label="Role Play, Play, Role navigation">
+        <a href="../">Rapid Fire</a>
+        <a href="#adventure">The Adventure</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#booking">Booking</a>
+      </nav>
+    </header>
+
+    <main id="adventure">
+      <section class="role-play-hero" aria-labelledby="role-play-title">
+        <div class="role-play-hero-inner">
+          <p class="role-play-kicker">Rapid Fire Improv presents</p>
+          <h1 id="role-play-title">Role Play,<br>Play, Role</h1>
+          <p class="role-play-tagline">A one-shot fantasy comedy campaign. Improvised live from your suggestions!</p>
+          <a class="button button-role-play-light" href="#schedule">Find a show</a>
+        </div>
+      </section>
+
+      <section class="role-play-description" aria-labelledby="role-play-description-title">
+        <div>
+          <p class="role-play-kicker">The adventure</p>
+          <h2 id="role-play-description-title">Every quest starts with a suggestion. The rest is reckless.</h2>
+        </div>
+        <div class="role-play-copy">
+          <p>Role Play, Play, Role is a fully improvised one-shot DnD-style comedy. You give us a world, a problem, and the spark of an idea. We build the adventure, make the characters, and immediately give somebody a terrible plan.</p>
+          <p>Expect bold heroes, suspicious taverns, accidental lore, wildly overconfident choices, and a whole campaign's worth of consequences in one gloriously self-contained night.</p>
+        </div>
+      </section>
+
+      <section id="schedule" class="role-play-schedule" aria-labelledby="role-play-schedule-title">
+        <div class="section-head">
+          <p class="role-play-kicker">Upcoming shows</p>
+          <h2 id="role-play-schedule-title">The campaign calendar</h2>
+          <p>Choose your next table. Every show is a brand-new comedy adventure, made up in the moment.</p>
+        </div>
+        <div id="role-play-shows-grid" class="role-play-shows-grid" aria-live="polite">
+          <p class="role-play-empty">Loading upcoming quests...</p>
+        </div>
+      </section>
+
+      <section id="booking" class="role-play-booking" aria-labelledby="role-play-booking-title">
+        <div>
+          <p class="role-play-kicker">Bring the party</p>
+          <h2 id="role-play-booking-title">Book Role Play, Play, Role</h2>
+          <p>
+            <span>Want a custom comedy quest for your venue, event, or very specific dungeon?</span>
+            <a id="role-play-email" class="role-play-contact-link" href="mailto:rapidfireimprovcomedy@gmail.com">rapidfireimprovcomedy@gmail.com</a>
+            <span id="role-play-phone-intro">or call/text</span>
+            <a id="role-play-phone" class="role-play-contact-link" href="tel:+16162975687">(616) 297-5687</a>
+          </p>
+        </div>
+        <a id="role-play-booking-button" class="button button-role-play-light" href="mailto:rapidfireimprovcomedy@gmail.com">Start a comedy quest</a>
+      </section>
+    </main>
+
+    <footer class="role-play-footer">
+      <span>Role Play, Play, Role by Rapid Fire Improv</span>
+      <a href="../">Back to Rapid Fire Improv</a>
+    </footer>
+  </body>
+</html>
