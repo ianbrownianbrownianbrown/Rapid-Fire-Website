@@ -16,7 +16,7 @@
       content="Upcoming shows, booking, and team updates for Rapid Fire Improv."
     >
     <meta property="og:type" content="website">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20261029-role-play-nav">
     <script defer src="config.js"></script>
     <script defer src="site.js"></script>
   </head>
@@ -37,7 +37,10 @@
         <nav class="site-nav" aria-label="Main navigation">
           <a href="#shows" data-content="nav.shows">Shows</a>
           <a href="#team" data-content="nav.team">Team</a>
-          <a class="site-nav-featured-link" href="role-play/">Role Play, Play, Role</a>
+          <a class="site-nav-featured-link" href="role-play/" aria-label="Role Play, Play, Role">
+            <span class="site-nav-featured-label-long">Role Play, Play, Role</span>
+            <span class="site-nav-featured-label-short">Role Play</span>
+          </a>
           <a href="#booking" data-content="nav.booking">Booking</a>
         </nav>
         <div class="social-links" aria-label="Social links">

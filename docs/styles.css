@@ -176,8 +176,12 @@ a {
   border-color: var(--ink);
   background: var(--ink);
   box-shadow: 0 3px 0 var(--pink), 0 0 16px rgba(255, 46, 150, 0.28);
-  color: #fff8ec;
+  color: #fff8ec !important;
   font-size: 1rem;
+}
+
+.site-nav-featured-label-short {
+  display: none;
 }
 
 .site-nav a:hover,
@@ -194,7 +198,7 @@ a {
   border-color: var(--pink);
   background: var(--ink);
   box-shadow: 0 4px 0 var(--pink), 0 0 22px rgba(255, 46, 150, 0.48);
-  color: #fff8ec;
+  color: #fff8ec !important;
 }
 
 .social-links {
@@ -1234,6 +1238,14 @@ h3 {
 
   .site-nav .site-nav-featured-link {
     font-size: 0.9rem;
+  }
+
+  .site-nav-featured-label-long {
+    display: none;
+  }
+
+  .site-nav-featured-label-short {
+    display: inline;
   }
 
   .social-links {
