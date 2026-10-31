@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-15T15:26:52.008Z",
+  "updated_at": "2026-10-31T17:27:59.226Z",
   "shows": [
     {
       "date": "2026-08-03",
@@ -65,6 +65,72 @@
       "ticket_url": "#booking",
       "description": "",
       "status": "Details coming soon!",
+      "featured": false
+    },
+    {
+      "date": "2026-11-02",
+      "time": "7:00 PM",
+      "title": "Monthly COM",
+      "venue": "The Comedy Project",
+      "address": "540540 Leonard St NW B, Grand Rapids, MI 49504",
+      "ticket_url": "https://www.crowdwork.com/e/comedy-outlet-mondays-open-mic-variety-show?date=2026-11-02T19:00:00",
+      "description": "Every Monday, The Comedy Project turns over the stage to Comedy Outlet Mondays(COM) for their weekly, one of a kind, comedy variety show! COM features new improv, sketch, standup, music, and experimental comedic acts of every kind!",
+      "status": "",
+      "featured": false
+    },
+    {
+      "date": "2026-11-05",
+      "time": "7:00 PM",
+      "title": "Rapid Fire at Kalamazoo Improv Festival",
+      "venue": "Crawlspace",
+      "address": "315 W Michigan Ave. Kalamazoo, MI 49007",
+      "ticket_url": "",
+      "description": "",
+      "status": "",
+      "featured": false
+    },
+    {
+      "date": "2026-11-20",
+      "time": "7:00 PM",
+      "title": "Rapid Fire at Traverse City",
+      "venue": "",
+      "address": "",
+      "ticket_url": "",
+      "description": "",
+      "status": "Details soon",
+      "featured": false
+    },
+    {
+      "date": "2026-12-04",
+      "time": "7:00 PM",
+      "title": "Rapid Fire at A La Carte Comedy",
+      "venue": "Teller's Lounge",
+      "address": "117 Division Ave S, Grand Rapids, MI 49503",
+      "ticket_url": "#booking",
+      "description": "",
+      "status": "Details soon",
+      "featured": false
+    },
+    {
+      "date": "2026-12-18",
+      "time": "7:00 PM",
+      "title": "Rapid Fire at The Stage at the Corner",
+      "venue": "The Stage at the Corner",
+      "address": "280 W Muskegon Ave, Muskegon, MI 49440",
+      "ticket_url": "https://thestageatthecorner.ludus.com/select.php",
+      "description": "",
+      "status": "",
+      "featured": false
+    },
+    {
+      "date": "",
+      "time": "7:00 PM",
+      "title": "New Show",
+      "venue": "Venue TBA",
+      "address": "",
+      "ticket_url": "#booking",
+      "description": "",
+      "status": "Details soon",
       "featured": false
     }
   ]
